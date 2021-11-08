@@ -1,3 +1,4 @@
+import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,7 +16,7 @@ class BuildTopicCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: color.withOpacity(0.5),
+      color: color,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       margin: margin,
       elevation: 5.0,
@@ -27,7 +28,7 @@ class BuildTopicCard extends StatelessWidget {
             child: Text(
               topic,
               style: GoogleFonts.notoSans(
-                color: Colors.black,
+                color: color == MainScaffold.backgroundColor ? Colors.white : Colors.black,
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
               ),

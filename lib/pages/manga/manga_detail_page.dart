@@ -1,5 +1,6 @@
 import 'package:anime_list_project/models/manga.dart';
 import 'package:anime_list_project/pages/detail_page.dart';
+import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class MangaDetailPage extends StatefulWidget {
@@ -21,6 +22,7 @@ class _MangaDetailPageState extends State<MangaDetailPage> {
           MangaDetailPage.title,
           style: Theme.of(context).textTheme.headline1,
         ),
+        backgroundColor: MainScaffold.backgroundColor,
       ),
       body: Container(
         decoration: const BoxDecoration(

@@ -13,7 +13,7 @@ class MainScaffold extends StatelessWidget {
   final String title;
   final int page, initialPage;
   final List<Tab>? tabs;
-  final Color focusColor = Colors.blue, defaultColor = Colors.white, backgroundColor = Colors.black;
+  static const Color focusColor = Colors.blue, defaultColor = Colors.white, backgroundColor = Colors.black;
   static const List<Map<String, dynamic>> pageList = [
     {
       "icon": Icons.home,
@@ -77,6 +77,7 @@ class MainScaffold extends StatelessWidget {
         appBar: AppBar(
           title: Text(title, style: Theme.of(context).textTheme.headline1),
           bottom: tabs==null ? null : TabBar(tabs: tabs!),
+          backgroundColor: backgroundColor,
         ),
         drawer: Theme(
           data: Theme.of(context).copyWith(

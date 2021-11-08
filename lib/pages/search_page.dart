@@ -30,7 +30,7 @@ class _SearchPageState extends State<SearchPage> {
   ];
 
   Genre? _genre;
-  String? _query;
+  String _query = '';
   Future<dynamic>? _futureNameList, _futureGenreList;
 
   final _controller = TextEditingController();
@@ -69,20 +69,29 @@ class _SearchPageState extends State<SearchPage> {
             onChanged: (text) {
               setState(() {
                 _query = text;
-                _futureNameList = fetchApi('search/$type', query: {'q': _query});
+                _futureNameList = fetchApi(
+                  'search/$type',
+                  query: _query.isNotEmpty ? {'q': _query} : null,
+                );
               });
             },
             controller: _controller,
+            style: GoogleFonts.notoSans(
+              color: MainScaffold.defaultColor,
+            ),
             decoration: InputDecoration(
-              fillColor: Colors.white,
+              hintStyle: GoogleFonts.notoSans(
+                color: MainScaffold.defaultColor,
+              ),
+              fillColor: MainScaffold.backgroundColor,
               filled: true,
-              prefixIcon: const Icon(Icons.search),
+              prefixIcon: const Icon(Icons.search, color: MainScaffold.defaultColor),
               border: const OutlineInputBorder(),
               hintText: 'Enter $type name',
             ),
           ),
         ),
-        if(_query != null)
+        if(_query.isNotEmpty)
           _buildFutureBuilder('name'),
       ],
     );
@@ -101,7 +110,7 @@ class _SearchPageState extends State<SearchPage> {
     ListView(
       children: [
         BuildTopicCard(
-          color: Colors.blue,
+          color: Colors.black,
           topic: _genre!.name!,
           margin: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
         ),
@@ -161,7 +170,13 @@ class _SearchPageState extends State<SearchPage> {
                           _futureGenreList = fetchApi('${widget.endPoint}/$i');
                         });
                       },
-                      child: Text(genreList[i], style: GoogleFonts.notoSans()),
+                      style: ElevatedButton.styleFrom(
+                        primary: MainScaffold.backgroundColor,
+                      ),
+                      child: Text(
+                        genreList[i],
+                        style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
+                      ),
                     ),
                   ),
             ],

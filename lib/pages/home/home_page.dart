@@ -30,6 +30,7 @@ class HomePage extends StatelessWidget {
           for(int i=0;i<2;i++)
             Expanded(
               child: Card(
+                color: MainScaffold.backgroundColor,
                 margin: const EdgeInsets.only(right: 16.0),
                 child: InkWell(
                   onTap: (){
@@ -42,7 +43,11 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        Icon(pageInfo[i]['icon'], size: 80.0),
+                        Icon(
+                          pageInfo[i]['icon'],
+                          size: 80.0,
+                          color: MainScaffold.defaultColor,
+                        ),
                         Text(
                           pageInfo[i]['title'],
                           style: Theme.of(context).textTheme.bodyText1,

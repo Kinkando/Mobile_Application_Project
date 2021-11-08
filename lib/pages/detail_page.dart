@@ -3,7 +3,9 @@ import 'package:anime_list_project/models/genre.dart';
 import 'package:anime_list_project/models/manga.dart';
 import 'package:anime_list_project/pages/anime/anime_search_page.dart';
 import 'package:anime_list_project/pages/manga/manga_search_page.dart';
+import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DetailPage extends StatelessWidget {
   final dynamic info;
@@ -15,7 +17,7 @@ class DetailPage extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       children: [
         Card(
-          color: Colors.white.withOpacity(0.5),
+          color: MainScaffold.backgroundColor.withOpacity(0.5),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: info is Anime ? _buildAnimeContent(context, info as Anime)
@@ -131,11 +133,11 @@ class DetailPage extends StatelessWidget {
             arguments: genre,
           );
         },
-        child: Text(genre.name!, style: Theme.of(context).textTheme.bodyText2),
+        child: Text(genre.name!, style: GoogleFonts.notoSans(color: MainScaffold.backgroundColor)),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
           minimumSize: const Size(10, 10),
-          primary: Colors.yellow.shade100,
+          primary: MainScaffold.defaultColor,
         ),
       ),
     );
