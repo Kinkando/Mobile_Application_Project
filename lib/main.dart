@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
 
         textTheme: TextTheme(
+          headline1: GoogleFonts.notoSans(fontSize: 24.0, color: Colors.white, fontWeight: FontWeight.bold),
           bodyText1: GoogleFonts.notoSans(fontSize: 14.0, color: Colors.black, fontWeight: FontWeight.bold),
           bodyText2: GoogleFonts.notoSans(fontSize: 14.0, color: Colors.black),
         ),
