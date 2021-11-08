@@ -17,7 +17,10 @@ class _MangaDetailPageState extends State<MangaDetailPage> {
     final Manga manga = ModalRoute.of(context)!.settings.arguments as Manga;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(MangaDetailPage.title),
+        title: Text(
+          MangaDetailPage.title,
+          style: Theme.of(context).textTheme.headline1,
+        ),
       ),
       body: Container(
         decoration: const BoxDecoration(

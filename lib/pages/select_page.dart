@@ -5,6 +5,7 @@ import 'package:anime_list_project/pages/widgets/build_card.dart';
 import 'package:anime_list_project/pages/widgets/build_topic_card.dart';
 import 'package:anime_list_project/utils/fetch_future.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SelectPage extends StatefulWidget {
   final String routeName, endPoint;
@@ -114,7 +115,7 @@ class _SelectPageState extends State<SelectPage> {
                     );
                   });
                 },
-                child: Text(_page>1 ? 'Back' : 'Next', style: const TextStyle(color: Colors.white)),
+                child: Text(_page>1 ? 'Back' : 'Next', style: GoogleFonts.notoSans(color: Colors.white)),
               ),
             ),
           ],

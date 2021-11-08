@@ -17,7 +17,10 @@ class _AnimeDetailPageState extends State<AnimeDetailPage> {
     final Anime anime = ModalRoute.of(context)!.settings.arguments as Anime;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AnimeDetailPage.title),
+        title: Text(
+          AnimeDetailPage.title,
+          style: Theme.of(context).textTheme.headline1,
+        ),
       ),
       body: Container(
         decoration: const BoxDecoration(

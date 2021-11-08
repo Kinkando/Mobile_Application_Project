@@ -4,6 +4,7 @@ import 'package:anime_list_project/pages/widgets/build_topic_card.dart';
 import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
 import 'package:anime_list_project/utils/fetch_future.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SearchPage extends StatefulWidget {
   final dynamic args;
@@ -160,7 +161,7 @@ class _SearchPageState extends State<SearchPage> {
                           _futureGenreList = fetchApi('${widget.endPoint}/$i');
                         });
                       },
-                      child: Text(genreList[i]),
+                      child: Text(genreList[i], style: GoogleFonts.notoSans()),
                     ),
                   ),
             ],

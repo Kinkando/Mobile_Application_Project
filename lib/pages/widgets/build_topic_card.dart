@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BuildTopicCard extends StatelessWidget {
   final Color color;
@@ -25,7 +26,7 @@ class BuildTopicCard extends StatelessWidget {
           Flexible(
             child: Text(
               topic,
-              style: const TextStyle(
+              style: GoogleFonts.notoSans(
                 color: Colors.black,
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
