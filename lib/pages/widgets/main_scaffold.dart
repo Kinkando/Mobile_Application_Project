@@ -88,7 +88,7 @@ class MainScaffold extends StatelessWidget {
               padding: EdgeInsets.zero,
               children: [
                 DrawerHeader(
-                  decoration: BoxDecoration(color: backgroundColor),
+                  decoration: const BoxDecoration(color: backgroundColor),
                   child: Image.asset(
                     'assets/images/drawer_header.jpg',
                     fit: BoxFit.cover,
