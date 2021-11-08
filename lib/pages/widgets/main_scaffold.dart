@@ -6,6 +6,7 @@ import 'package:anime_list_project/pages/home/home_page.dart';
 import 'package:anime_list_project/pages/manga/manga_search_page.dart';
 import 'package:anime_list_project/pages/manga/manga_top_page.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MainScaffold extends StatelessWidget {
   final Widget body;
@@ -26,7 +27,7 @@ class MainScaffold extends StatelessWidget {
       "routeName": AnimeSeasonPage.routeName,
     },
     {
-      "icon": Icons.category,
+      "icon": Icons.date_range,
       "page" : AnimeSchedulePage.page,
       "title": AnimeSchedulePage.title,
       "routeName": AnimeSchedulePage.routeName,
@@ -73,7 +74,7 @@ class MainScaffold extends StatelessWidget {
       length: tabs!=null ? tabs!.length : 0,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(title, style: Theme.of(context).textTheme.headline1),
           bottom: tabs==null ? null : TabBar(tabs: tabs!),
         ),
         drawer: Drawer(
@@ -91,12 +92,23 @@ class MainScaffold extends StatelessWidget {
               ),
               _buildListTile(context, pageList[0]),
               ExpansionTile(
-                title: Text(
-                  'Anime',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: page>=AnimeSeasonPage.page && page<=AnimeSearchPage.page ? Colors.blue : Colors.black,
-                  ),
+                title: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Icon(
+                        Icons.smart_display,
+                        color: page>=AnimeSeasonPage.page && page<=AnimeSearchPage.page ? Colors.blue : Colors.black,
+                      ),
+                    ),
+                    Text(
+                      'Anime',
+                      style: GoogleFonts.notoSans(
+                        fontSize: 14.0,
+                        color: page>=AnimeSeasonPage.page && page<=AnimeSearchPage.page ? Colors.blue : Colors.black,
+                      ),
+                    ),
+                  ],
                 ),
                 children: [
                   for(int i=1;i<=4;i++)
@@ -104,12 +116,23 @@ class MainScaffold extends StatelessWidget {
                 ],
               ),
               ExpansionTile(
-                title: Text(
-                  'Manga',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: page>=MangaTopPage.page && page<=MangaSearchPage.page ? Colors.blue : Colors.black,
-                  ),
+                title: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Icon(
+                        Icons.menu_book,
+                        color: page>=MangaTopPage.page && page<=MangaSearchPage.page ? Colors.blue : Colors.black,
+                      ),
+                    ),
+                    Text(
+                      'Manga',
+                      style: GoogleFonts.notoSans(
+                        fontSize: 14.0,
+                        color: page>=MangaTopPage.page && page<=MangaSearchPage.page ? Colors.blue : Colors.black,
+                      ),
+                    ),
+                  ],
                 ),
                 children: [
                   for(int i=5;i<=6;i++)
@@ -136,11 +159,22 @@ class MainScaffold extends StatelessWidget {
     return ListTile(
       title: Padding(
         padding: EdgeInsets.all(pageInfo['title'] == HomePage.title ? 0.0 : 8.0),
-        child: Text(
-          pageInfo['title'],
-          style: page == pageInfo['page'] || pageInfo['title'] == HomePage.title
-              ? null
-              : Theme.of(context).textTheme.bodyText2,
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Icon(
+                pageInfo['icon'],
+                color: page == pageInfo['page'] ? Colors.blue : Colors.black,
+              ),
+            ),
+            Text(
+              pageInfo['title'],
+              style: page == pageInfo['page'] || pageInfo['title'] == HomePage.title
+                  ? null
+                  : Theme.of(context).textTheme.bodyText2,
+            ),
+          ],
         ),
       ),
       onTap: () {
