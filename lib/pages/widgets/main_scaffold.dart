@@ -13,6 +13,7 @@ class MainScaffold extends StatelessWidget {
   final String title;
   final int page, initialPage;
   final List<Tab>? tabs;
+  final Color focusColor = Colors.blue, defaultColor = Colors.white, backgroundColor = Colors.black;
   static const List<Map<String, dynamic>> pageList = [
     {
       "icon": Icons.home,
@@ -77,69 +78,78 @@ class MainScaffold extends StatelessWidget {
           title: Text(title, style: Theme.of(context).textTheme.headline1),
           bottom: tabs==null ? null : TabBar(tabs: tabs!),
         ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              DrawerHeader(
-                decoration: const BoxDecoration(color: Colors.blue),
-                child: Image.asset(
-                  'assets/images/drawer_header.jpg',
-                  fit: BoxFit.cover,
+        drawer: Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: backgroundColor,//Colors.lightBlueAccent.shade100,
+          ),
+          child: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                DrawerHeader(
+                  decoration: BoxDecoration(color: backgroundColor),
+                  child: Image.asset(
+                    'assets/images/drawer_header.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                  margin: EdgeInsets.zero,
+                  padding: EdgeInsets.zero,
                 ),
-                margin: EdgeInsets.zero,
-                padding: EdgeInsets.zero,
-              ),
-              _buildListTile(context, pageList[0]),
-              ExpansionTile(
-                title: Row(
+                _buildListTile(context, pageList[0]),
+                ExpansionTile(
+                  iconColor: page>=AnimeSeasonPage.page && page<=AnimeSearchPage.page ? focusColor : defaultColor,
+                  collapsedIconColor: page>=AnimeSeasonPage.page && page<=AnimeSearchPage.page ? focusColor : defaultColor,
+                  title: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(
+                          Icons.smart_display,
+                          color: page>=AnimeSeasonPage.page && page<=AnimeSearchPage.page ? focusColor : defaultColor,
+                        ),
+                      ),
+                      Text(
+                        'Anime',
+                        style: GoogleFonts.notoSans(
+                          fontSize: 14.0,
+                          color: page>=AnimeSeasonPage.page && page<=AnimeSearchPage.page ? focusColor : defaultColor,
+                        ),
+                      ),
+                    ],
+                  ),
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Icon(
-                        Icons.smart_display,
-                        color: page>=AnimeSeasonPage.page && page<=AnimeSearchPage.page ? Colors.blue : Colors.black,
-                      ),
-                    ),
-                    Text(
-                      'Anime',
-                      style: GoogleFonts.notoSans(
-                        fontSize: 14.0,
-                        color: page>=AnimeSeasonPage.page && page<=AnimeSearchPage.page ? Colors.blue : Colors.black,
-                      ),
-                    ),
+                    for(int i=1;i<=4;i++)
+                      _buildListTile(context, pageList[i]),
                   ],
                 ),
-                children: [
-                  for(int i=1;i<=4;i++)
-                    _buildListTile(context, pageList[i]),
-                ],
-              ),
-              ExpansionTile(
-                title: Row(
+                ExpansionTile(
+                  iconColor: page>=MangaTopPage.page && page<=MangaSearchPage.page ? focusColor : defaultColor,
+                  collapsedIconColor: page>=MangaTopPage.page && page<=MangaSearchPage.page ? focusColor : defaultColor,
+                  title: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(
+                          Icons.menu_book,
+                          color: page>=MangaTopPage.page && page<=MangaSearchPage.page ? focusColor : defaultColor,
+                        ),
+                      ),
+                      Text(
+                        'Manga',
+                        style: GoogleFonts.notoSans(
+                          fontSize: 14.0,
+                          color: page>=MangaTopPage.page && page<=MangaSearchPage.page ? focusColor : defaultColor,
+                        ),
+                      ),
+                    ],
+                  ),
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Icon(
-                        Icons.menu_book,
-                        color: page>=MangaTopPage.page && page<=MangaSearchPage.page ? Colors.blue : Colors.black,
-                      ),
-                    ),
-                    Text(
-                      'Manga',
-                      style: GoogleFonts.notoSans(
-                        fontSize: 14.0,
-                        color: page>=MangaTopPage.page && page<=MangaSearchPage.page ? Colors.blue : Colors.black,
-                      ),
-                    ),
+                    for(int i=5;i<=6;i++)
+                      _buildListTile(context, pageList[i]),
                   ],
                 ),
-                children: [
-                  for(int i=5;i<=6;i++)
-                    _buildListTile(context, pageList[i]),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         body: Container(
@@ -158,21 +168,19 @@ class MainScaffold extends StatelessWidget {
   ListTile _buildListTile(BuildContext context, Map pageInfo) {
     return ListTile(
       title: Padding(
-        padding: EdgeInsets.all(pageInfo['title'] == HomePage.title ? 0.0 : 8.0),
+        padding: EdgeInsets.only(left: pageInfo['title'] == HomePage.title ? 0.0 : 30.0),
         child: Row(
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: Icon(
                 pageInfo['icon'],
-                color: page == pageInfo['page'] ? Colors.blue : Colors.black,
+                color: page == pageInfo['page'] ? focusColor: defaultColor,
               ),
             ),
             Text(
               pageInfo['title'],
-              style: page == pageInfo['page'] || pageInfo['title'] == HomePage.title
-                  ? null
-                  : Theme.of(context).textTheme.bodyText2,
+              style: GoogleFonts.notoSans(color: page == pageInfo['page'] ? focusColor : defaultColor),
             ),
           ],
         ),
