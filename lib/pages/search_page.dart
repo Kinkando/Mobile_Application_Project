@@ -29,11 +29,18 @@ class _SearchPageState extends State<SearchPage> {
     const Tab(text: 'Genre'),
   ];
 
+  late String _type;
   Genre? _genre;
-  String _query = '';
+  String _name = '', _mode = '';
   Future<dynamic>? _futureNameList, _futureGenreList;
 
   final _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _type = widget.routeName.contains('anime') ? 'anime' : 'manga';
+  }
 
   @override
   void dispose() {
@@ -41,15 +48,24 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
-  void _searchSubmit(String text, String type) {
+  void _nameSearchSubmit(String text) {
     setState(() {
-      _query = text;
-      if(_query.isNotEmpty) {
+      _mode = 'name';
+      _name = text;
+      if(_name.isNotEmpty) {
         _futureNameList = fetchApi(
-          'search/$type',
-          query: _query.isNotEmpty ? {'q': _query} : null,
+          'search/$_type',
+          query: _name.isNotEmpty ? {'q': _name} : null,
         );
       }
+    });
+  }
+
+  void _genreSearchSubmit(Genre genre) {
+    setState(() {
+      _mode = 'genre';
+      _genre = genre;
+      _futureGenreList = fetchApi('${widget.endPoint}/${_genre!.malId!}');
     });
   }
 
@@ -72,13 +88,12 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget _nameSearch() {
-    String type = widget.routeName.contains('anime') ? 'anime' : 'manga';
     return ListView(
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
           child: TextField(
-            onSubmitted: (text) => _searchSubmit(text, type),
+            onSubmitted: (text) => _nameSearchSubmit(text),
             controller: _controller,
             style: GoogleFonts.notoSans(
               color: MainScaffold.defaultColor,
@@ -91,26 +106,22 @@ class _SearchPageState extends State<SearchPage> {
               filled: true,
               prefixIcon: const Icon(Icons.search, color: MainScaffold.defaultColor),
               border: const OutlineInputBorder(),
-              hintText: 'Enter $type name',
+              hintText: 'Enter $_type name',
             ),
           ),
         ),
-        if(_query.isNotEmpty)
-          _buildFutureBuilder('name'),
+        if(_name.isNotEmpty)
+          _buildFutureBuilder(),
       ],
     );
   }
 
   Widget _genreSearch() {
     if(widget.args != null && _genre == null) {
-      setState(() {
-        _genre = widget.args as Genre;
-        _futureGenreList = fetchApi('${widget.endPoint}/${_genre!.malId!}');
-      });
+      _genreSearchSubmit(widget.args as Genre);
     }
-    String type = widget.routeName.contains('anime') ? 'Anime' : 'Manga';
-    List<String> genreList = Genre.genreList(type);
-    return _genre == null ? _buildGenreTag(genreList, type) :
+    List<String> genreList = Genre.genreList(_type);
+    return _genre == null ? _buildGenreTag(genreList) :
     ListView(
       children: [
         BuildTopicCard(
@@ -118,15 +129,15 @@ class _SearchPageState extends State<SearchPage> {
           topic: _genre!.name!,
           margin: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
         ),
-        _buildFutureBuilder('genre'),
-        _buildGenreTag(genreList, type),
+        _buildFutureBuilder(),
+        _buildGenreTag(genreList),
       ],
     );
   }
 
-  FutureBuilder<dynamic> _buildFutureBuilder(String type) {
+  FutureBuilder<dynamic> _buildFutureBuilder() {
     return FutureBuilder<dynamic>(
-      future: type == 'name' ? _futureNameList : _futureGenreList,
+      future: _mode == 'name' ? _futureNameList : _futureGenreList,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Center(
@@ -147,7 +158,34 @@ class _SearchPageState extends State<SearchPage> {
         }
 
         if (snapshot.hasError) {
-          return const SizedBox.shrink();
+          return _mode == 'name'
+          ? const Center(
+              child: Padding(
+                padding: EdgeInsets.only(top: 8.0),
+                child: Text('Not Found'),
+              ),
+            )
+          : Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Error: ${snapshot.error}',
+                  style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
+                ),
+                ElevatedButton(
+                  onPressed: () => _genreSearchSubmit(widget.args as Genre),
+                  style: ElevatedButton.styleFrom(
+                    primary: MainScaffold.backgroundColor,
+                  ),
+                  child: Text(
+                    'Try again!',
+                    style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
+                  ),
+                ),
+              ],
+            ),
+          );
         }
 
         return const SizedBox.shrink();
@@ -155,7 +193,7 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Padding _buildGenreTag(List<String> genreList, String type) {
+  Padding _buildGenreTag(List<String> genreList) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView(
@@ -168,15 +206,8 @@ class _SearchPageState extends State<SearchPage> {
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
                     child: ElevatedButton(
-                      onPressed: (){
-                        setState(() {
-                          _genre = Genre(malId: i, name: genreList[i], type: type);
-                          _futureGenreList = fetchApi('${widget.endPoint}/$i');
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: MainScaffold.backgroundColor,
-                      ),
+                      onPressed: () => _genreSearchSubmit(Genre(malId: i, name: genreList[i], type: _type)),
+                      style: ElevatedButton.styleFrom(primary: MainScaffold.backgroundColor),
                       child: Text(
                         genreList[i],
                         style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
