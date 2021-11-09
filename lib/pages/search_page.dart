@@ -174,7 +174,7 @@ class _SearchPageState extends State<SearchPage> {
                   style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
                 ),
                 ElevatedButton(
-                  onPressed: () => _genreSearchSubmit(widget.args as Genre),
+                  onPressed: () => _genreSearchSubmit(_genre!),
                   style: ElevatedButton.styleFrom(
                     primary: MainScaffold.backgroundColor,
                   ),
