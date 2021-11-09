@@ -2,7 +2,7 @@ import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  static const appName = 'Oniresuto';
+  static const appName = 'Unirest';
   static const routeName = '/home';
   static const title = 'Home Page';
   static const page = 0;
