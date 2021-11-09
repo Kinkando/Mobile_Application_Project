@@ -73,7 +73,10 @@ class _SelectPageState extends State<SelectPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Error: ${snapshot.error}'),
+                Text(
+                  'Error: ${snapshot.error}',
+                  style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
+                ),
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
@@ -84,7 +87,13 @@ class _SelectPageState extends State<SelectPage> {
                       );
                     });
                   },
-                  child: const Text('Try again!'),
+                  style: ElevatedButton.styleFrom(
+                    primary: MainScaffold.backgroundColor,
+                  ),
+                  child: Text(
+                    'Try again!',
+                    style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
+                  ),
                 ),
               ],
             ),
