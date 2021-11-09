@@ -167,7 +167,7 @@ class _SearchPageState extends State<SearchPage> {
             )
           : Center(
             child: Padding(
-              padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+              padding: const EdgeInsets.all(30.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
