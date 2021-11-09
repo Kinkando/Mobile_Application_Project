@@ -19,7 +19,6 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
     return SearchPage(
       args: args,
       title: AnimeSearchPage.title,
-      routeName: AnimeSearchPage.routeName,
       endPoint: AnimeSearchPage.endPoint,
       page: AnimeSearchPage.page,
     );

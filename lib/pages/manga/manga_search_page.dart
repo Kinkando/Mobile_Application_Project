@@ -19,7 +19,6 @@ class _MangaSearchPageState extends State<MangaSearchPage> {
     return SearchPage(
       args: args,
       title: MangaSearchPage.title,
-      routeName: MangaSearchPage.routeName,
       endPoint: MangaSearchPage.endPoint,
       page: MangaSearchPage.page,
     );
