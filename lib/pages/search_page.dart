@@ -64,7 +64,7 @@ class _SearchPageState extends State<SearchPage> {
     setState(() {
       _mode = 'genre';
       _genre = genre;
-      _futureGenreList = fetchApi('${widget.endPoint}/${_genre!.malId!}');
+      _futureGenreList = fetchApi('${widget.endPoint}/${_genre!.malId}');
     });
   }
 
@@ -119,13 +119,13 @@ class _SearchPageState extends State<SearchPage> {
     if(widget.args != null && _genre == null) {
       _genreSearchSubmit(widget.args as Genre);
     }
-    List<String> genreList = Genre.genreList(_type);
+    List<Genre> genreList = Genre.genreList(_type);
     return _genre == null ? _buildGenreTag(genreList) :
     ListView(
       children: [
         BuildTopicCard(
           color: Colors.black,
-          topic: _genre!.name!,
+          topic: _genre!.name,
           margin: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
         ),
         _buildFutureBuilder(),
@@ -195,7 +195,7 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Padding _buildGenreTag(List<String> genreList) {
+  Padding _buildGenreTag(List<Genre> genreList) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView(
@@ -203,19 +203,18 @@ class _SearchPageState extends State<SearchPage> {
         children: [
           Wrap(
             children: [
-              for(int i=1;i<genreList.length;i++)
-                if(genreList[i].isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
-                    child: ElevatedButton(
-                      onPressed: () => _genreSearchSubmit(Genre(malId: i, name: genreList[i], type: _type)),
-                      style: ElevatedButton.styleFrom(primary: MainScaffold.backgroundColor),
-                      child: Text(
-                        genreList[i],
-                        style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
-                      ),
+              for(int i=0;i<genreList.length;i++)
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
+                  child: ElevatedButton(
+                    onPressed: () => _genreSearchSubmit(genreList[i]),
+                    style: ElevatedButton.styleFrom(primary: MainScaffold.backgroundColor),
+                    child: Text(
+                      genreList[i].name,
+                      style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
                     ),
                   ),
+                ),
             ],
           ),
         ],
