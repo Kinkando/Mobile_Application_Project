@@ -61,7 +61,7 @@ class Genre {
       'Psychological',
     ];
 
-    if(type == 'Anime') {
+    if(type == 'anime') {
       genreList.addAll([
         'Suspense',
         'Seinen',
