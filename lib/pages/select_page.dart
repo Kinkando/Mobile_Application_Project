@@ -3,6 +3,7 @@ import 'package:anime_list_project/pages/anime/anime_schedule_page.dart';
 import 'package:anime_list_project/pages/anime/anime_search_page.dart';
 import 'package:anime_list_project/pages/widgets/build_card.dart';
 import 'package:anime_list_project/pages/widgets/build_topic_card.dart';
+import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
 import 'package:anime_list_project/utils/fetch_future.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -115,7 +116,13 @@ class _SelectPageState extends State<SelectPage> {
                     );
                   });
                 },
-                child: Text(_page>1 ? 'Back' : 'Next', style: GoogleFonts.notoSans(color: Colors.white)),
+                style: ElevatedButton.styleFrom(
+                  primary: MainScaffold.backgroundColor,
+                ),
+                child: Text(
+                  _page>1 ? 'Back' : 'Next',
+                  style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
+                ),
               ),
             ),
           ],
