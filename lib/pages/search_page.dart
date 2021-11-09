@@ -105,7 +105,7 @@ class _SearchPageState extends State<SearchPage> {
               filled: true,
               prefixIcon: const Icon(Icons.search, color: MainScaffold.defaultColor),
               border: const OutlineInputBorder(),
-              hintText: 'Enter $_type Name',
+              hintText: 'Enter $_type name',
             ),
           ),
         ),
