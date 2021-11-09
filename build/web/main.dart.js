@@ -3147,13 +3147,12 @@ kH:function kH(a){this.a=a},
 d4:function d4(a){this.a=a},
 hk:function hk(a){this.a=a},
 hv(a){if(a==null)return"null"
-return C.d.a_(a,1)}},F={F3:function F3(a){this.a=a},YK:function YK(){},YL:function YL(){},YM:function YM(){},YN:function YN(){},YO:function YO(){},YP:function YP(){},YQ:function YQ(){},YR:function YR(){},YS:function YS(){},q6:function q6(a,b,c,d,e,f){var _=this
+return C.d.a_(a,1)}},F={F3:function F3(a){this.a=a},YK:function YK(){},YL:function YL(){},YM:function YM(){},YN:function YN(){},YO:function YO(){},YP:function YP(){},YQ:function YQ(){},YR:function YR(){},YS:function YS(){},q6:function q6(a,b,c,d,e){var _=this
 _.c=a
 _.d=b
 _.e=c
 _.f=d
-_.r=e
-_.a=f},NJ:function NJ(a,b,c){var _=this
+_.a=e},NJ:function NJ(a,b,c){var _=this
 _.d=a
 _.f=_.e=null
 _.x=_.r=""
@@ -37331,7 +37330,7 @@ J(a,b){return C.Gm}}
 Q.lD.prototype={
 ay(){return new Q.J4(C.m)}}
 Q.J4.prototype={
-J(a,b){return new F.q6(T.j2(b,t.X).b.b,"Search Anime","/anime/search","genre/anime",4,null)}}
+J(a,b){return new F.q6(T.j2(b,t.X).b.b,"Search Anime","genre/anime",4,null)}}
 R.lE.prototype={
 ay(){return new R.J5(C.m)}}
 R.J5.prototype={
@@ -37391,7 +37390,7 @@ return M.af4(E.adw(C.o,s,L.d2("Manga Detail",s,s,s,s,K.ai(b).S.a,s,s)),M.dX(s,ne
 G.mA.prototype={
 ay(){return new G.LI(C.m)}}
 G.LI.prototype={
-J(a,b){return new F.q6(T.j2(b,t.X).b.b,"Search Manga","/manga/search","genre/manga",6,null)}}
+J(a,b){return new F.q6(T.j2(b,t.X).b.b,"Search Manga","genre/manga",6,null)}}
 A.mB.prototype={
 ay(){return new A.LJ(C.m)}}
 A.LJ.prototype={
@@ -37402,12 +37401,12 @@ F.NJ.prototype={
 gtR(){var s=this.e
 return s==null?H.f(H.t("_type")):s},
 aZ(){this.bp()
-this.e=C.b.v(this.a.e,"anime")?"anime":"manga"},
+this.e=C.b.v(this.a.e,"manga")?"Manga":"Anime"},
 l(a){this.bg(0)},
 a1T(a){this.aK(new F.a9x(this,a))},
 ye(a){this.aK(new F.a9w(this,a))},
 J(a,b){var s,r=this.a,q=r.d,p=r.c!=null?1:0,o=this.d
-r=r.r
+r=r.f
 s=H.am(o).j("az<1,i>")
 return new E.j_(new E.xz(P.aA(new H.az(o,new F.a9z(this),s),!0,s.j("bh.E")),null),q,r,p,o,null)},
 a1S(){var s=this,r=null,q=B.eE(C.k,r,r),p=L.aj6(r,C.HE,r,r,r,r,r,r,!0,r,r,r,r,r,C.o,!0,r,r,r,r,r,r,r,r,r,B.eE(C.k,r,r),"Enter "+s.gtR()+" name",r,r,r,!1,r,r,r,r,r,C.CP,r,r,r,r,r,r,r,r,r)
@@ -37433,7 +37432,7 @@ $0(){var s,r,q=this.a
 q.x="genre"
 s=this.b
 q.f=s
-r=q.a.f+"/"
+r=q.a.e+"/"
 s=s.a
 s.toString
 q.z=Z.o2(r+s,0,null)},
@@ -37471,7 +37470,7 @@ q=T.iI(new T.bF(C.Cs,T.iK(H.a([s,D.Dv(L.d2("Try again!",p,p,p,p,B.eE(C.k,p,p),p,
 s=q}return s}return C.bE},
 $S:136}
 F.a9s.prototype={
-$2(a,b){return new A.hC(J.b5(this.b,b),this.a.a.f,null)},
+$2(a,b){return new A.hC(J.b5(this.b,b),this.a.a.e,null)},
 $S:158}
 F.a9t.prototype={
 $0(){var s=this.a,r=s.f
