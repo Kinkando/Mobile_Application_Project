@@ -37401,7 +37401,7 @@ F.NJ.prototype={
 gtR(){var s=this.e
 return s==null?H.f(H.t("_type")):s},
 aZ(){this.bp()
-this.e=C.b.v(this.a.e,"manga")?"Manga":"Anime"},
+this.e=C.b.v(this.a.e,"manga")?"manga":"anime"},
 l(a){this.bg(0)},
 a1T(a){this.aK(new F.a9x(this,a))},
 ye(a){this.aK(new F.a9w(this,a))},
@@ -37409,7 +37409,7 @@ J(a,b){var s,r=this.a,q=r.d,p=r.c!=null?1:0,o=this.d
 r=r.f
 s=H.am(o).j("az<1,i>")
 return new E.j_(new E.xz(P.aA(new H.az(o,new F.a9z(this),s),!0,s.j("bh.E")),null),q,r,p,o,null)},
-a1S(){var s=this,r=null,q=B.eE(C.k,r,r),p=L.aj6(r,C.HE,r,r,r,r,r,r,!0,r,r,r,r,r,C.o,!0,r,r,r,r,r,r,r,r,r,B.eE(C.k,r,r),"Enter "+s.gtR()+" Name",r,r,r,!1,r,r,r,r,r,C.CP,r,r,r,r,r,r,r,r,r)
+a1S(){var s=this,r=null,q=B.eE(C.k,r,r),p=L.aj6(r,C.HE,r,r,r,r,r,r,!0,r,r,r,r,r,C.o,!0,r,r,r,r,r,r,r,r,r,B.eE(C.k,r,r),"Enter "+s.gtR()+" name",r,r,r,!1,r,r,r,r,r,C.CP,r,r,r,r,r,r,r,r,r)
 q=H.a([new T.bF(C.kp,new Z.xH(s.Q,p,C.K4,q,C.JA,C.JB,C.Nb,new F.a9y(s),r),r)],t.p)
 if(s.r.length!==0)q.push(s.Fe())
 return B.vt(q,r,!1)},
@@ -37445,7 +37445,7 @@ if(r!=null&&s.f==null)s.ye(t.ug.a(r))
 r=s.gtR()
 q=t.s
 p=H.a(["","Action","Adventure","Cars","Comedy","Avante Garde","Demons","Mystery","Drama","Ecchi","Fantasy","Game","Hentai","Historical","Horror","Kids","","Martial Arts","Mecha","Music","Parody","Samurai","Romance","School","Sci Fi","Shoujo","Girls Love","Shounen","Boys Love","Space","Sports","Super Power","Vampire","","","Harem","Slice Of Life","Supernatural","Military","Police","Psychological"],q)
-if(r==="Anime")C.c.N(p,H.a(["Suspense","Seinen","Josei","","","Award Winning","Gourmet","Work Life","Erotica"],q))
+if(r==="anime")C.c.N(p,H.a(["Suspense","Seinen","Josei","","","Award Winning","Gourmet","Work Life","Erotica"],q))
 else C.c.N(p,H.a(["Seinen","Josei","Doujinshi","Gender Bender","Suspense","Award Winning","Gourmet","","Erotica"],q))
 r=s.f
 if(r==null)s=s.Ff(p)
