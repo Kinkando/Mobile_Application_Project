@@ -2,6 +2,7 @@ import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
+  static const appName = 'Oniresuto';
   static const routeName = '/home';
   static const title = 'Home Page';
   static const page = 0;
@@ -11,7 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MainScaffold(
-      title: "Uchu Risuto",
+      title: HomePage.appName,
       page: 0,
       body: ListView(
         children: [

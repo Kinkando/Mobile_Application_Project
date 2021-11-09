@@ -20,10 +20,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Uchu Resuto',
+      title: HomePage.appName,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-
         textTheme: TextTheme(
           headline1: GoogleFonts.notoSans(fontSize: 24.0, color: MainScaffold.defaultColor, fontWeight: FontWeight.bold),
           bodyText1: GoogleFonts.notoSans(fontSize: 14.0, color: MainScaffold.defaultColor, fontWeight: FontWeight.bold),
@@ -33,11 +32,11 @@ class MyApp extends StatelessWidget {
       routes: {
         HomePage.routeName: (context) => const HomePage(),
         AnimeSeasonPage.routeName: (context) => const AnimeSeasonPage(),
-        AnimeTopPage.routeName: (context) => const AnimeTopPage(),
         AnimeSchedulePage.routeName: (context) => const AnimeSchedulePage(),
-        MangaTopPage.routeName: (context) => const MangaTopPage(),
+        AnimeTopPage.routeName: (context) => const AnimeTopPage(),
         AnimeSearchPage.routeName: (context) => const AnimeSearchPage(),
         AnimeDetailPage.routeName: (context) => const AnimeDetailPage(),
+        MangaTopPage.routeName: (context) => const MangaTopPage(),
         MangaSearchPage.routeName: (context) => const MangaSearchPage(),
         MangaDetailPage.routeName: (context) => const MangaDetailPage(),
       },
