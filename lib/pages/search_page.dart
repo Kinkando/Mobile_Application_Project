@@ -166,24 +166,27 @@ class _SearchPageState extends State<SearchPage> {
               ),
             )
           : Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Error: ${snapshot.error}',
-                  style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
-                ),
-                ElevatedButton(
-                  onPressed: () => _genreSearchSubmit(_genre!),
-                  style: ElevatedButton.styleFrom(
-                    primary: MainScaffold.backgroundColor,
-                  ),
-                  child: Text(
-                    'Try again!',
+            child: Padding(
+              padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Error: ${snapshot.error}',
                     style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
                   ),
-                ),
-              ],
+                  ElevatedButton(
+                    onPressed: () => _genreSearchSubmit(_genre!),
+                    style: ElevatedButton.styleFrom(
+                      primary: MainScaffold.backgroundColor,
+                    ),
+                    child: Text(
+                      'Try again!',
+                      style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         }
