@@ -8,13 +8,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SearchPage extends StatefulWidget {
   final dynamic args;
-  final String title, routeName, endPoint;
+  final String title, endPoint;
   final int page;
   const SearchPage({
     Key? key,
     required this.args,
     required this.title,
-    required this.routeName,
     required this.endPoint,
     required this.page,
   }) : super(key: key);
@@ -39,7 +38,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    _type = widget.routeName.contains('anime') ? 'anime' : 'manga';
+    _type = widget.endPoint.contains('manga') ? 'manga' : 'anime';
   }
 
   @override
