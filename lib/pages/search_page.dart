@@ -38,7 +38,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    _type = widget.endPoint.contains('manga') ? 'manga' : 'anime';
+    _type = widget.endPoint.contains('manga') ? 'Manga' : 'Anime';
   }
 
   @override
