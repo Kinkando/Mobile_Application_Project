@@ -78,7 +78,6 @@ class _SearchPageState extends State<SearchPage> {
         Padding(
           padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
           child: TextField(
-            onChanged: (text) => _searchSubmit(text, type),
             onSubmitted: (text) => _searchSubmit(text, type),
             controller: _controller,
             style: GoogleFonts.notoSans(
