@@ -1,4 +1,4 @@
-# Uchu Resuto Application
+# Unirest Application
 
 Mobile Application Development Project (SU : 517324)
 
