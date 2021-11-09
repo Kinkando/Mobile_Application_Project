@@ -67,7 +67,11 @@ class Genre {
         'Seinen',
         'Josei',
         '',
-        ''
+        '',
+        'Award Winning',
+        'Gourmet',
+        'Work Life',
+        'Erotica',
       ]);
     }
     else {
@@ -76,16 +80,13 @@ class Genre {
         'Josei',
         'Doujinshi',
         'Gender Bender',
-        'Suspense'
+        'Suspense',
+        'Award Winning',
+        'Gourmet',
+        '',
+        'Erotica',
       ]);
     }
-
-    genreList.addAll([
-      'Award Winning',
-      'Gourmet',
-      'Work Life',
-      'Erotica',
-    ]);
 
     return genreList;
   }
