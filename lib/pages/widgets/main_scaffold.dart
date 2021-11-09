@@ -136,7 +136,7 @@ class MainScaffold extends StatelessWidget {
       ),
       onTap: () {
         if(page != pageInfo['page']) {
-          Navigator.pushNamed(
+          Navigator.pushReplacementNamed(
             context,
             pageInfo['routeName'],
           );

@@ -127,13 +127,13 @@ class DetailPage extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 8.0, right: 8.0),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.pushNamed(
+          Navigator.pushReplacementNamed(
             context,
             genre.type == 'anime' ? AnimeSearchPage.routeName : MangaSearchPage.routeName,
             arguments: genre,
           );
         },
-        child: Text(genre.name!, style: GoogleFonts.notoSans(color: MainScaffold.backgroundColor)),
+        child: Text(genre.name, style: GoogleFonts.notoSans(color: MainScaffold.backgroundColor)),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
           minimumSize: const Size(10, 10),

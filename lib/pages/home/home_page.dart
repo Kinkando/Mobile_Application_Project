@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
                 margin: const EdgeInsets.only(right: 16.0),
                 child: InkWell(
                   onTap: (){
-                    Navigator.pushNamed(
+                    Navigator.pushReplacementNamed(
                       context,
                       pageInfo[i]['routeName'],
                     );
