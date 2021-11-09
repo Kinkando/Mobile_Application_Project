@@ -81,7 +81,7 @@ class MainScaffold extends StatelessWidget {
         ),
         drawer: Theme(
           data: Theme.of(context).copyWith(
-            canvasColor: backgroundColor,//Colors.lightBlueAccent.shade100,
+            canvasColor: backgroundColor,
           ),
           child: Drawer(
             child: ListView(
@@ -96,59 +96,8 @@ class MainScaffold extends StatelessWidget {
                   margin: EdgeInsets.zero,
                   padding: EdgeInsets.zero,
                 ),
-                _buildListTile(context, pageList[0]),
-                ExpansionTile(
-                  iconColor: page>=AnimeSeasonPage.page && page<=AnimeSearchPage.page ? focusColor : defaultColor,
-                  collapsedIconColor: page>=AnimeSeasonPage.page && page<=AnimeSearchPage.page ? focusColor : defaultColor,
-                  title: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Icon(
-                          Icons.smart_display,
-                          color: page>=AnimeSeasonPage.page && page<=AnimeSearchPage.page ? focusColor : defaultColor,
-                        ),
-                      ),
-                      Text(
-                        'Anime',
-                        style: GoogleFonts.notoSans(
-                          fontSize: 14.0,
-                          color: page>=AnimeSeasonPage.page && page<=AnimeSearchPage.page ? focusColor : defaultColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                  children: [
-                    for(int i=1;i<=4;i++)
-                      _buildListTile(context, pageList[i]),
-                  ],
-                ),
-                ExpansionTile(
-                  iconColor: page>=MangaTopPage.page && page<=MangaSearchPage.page ? focusColor : defaultColor,
-                  collapsedIconColor: page>=MangaTopPage.page && page<=MangaSearchPage.page ? focusColor : defaultColor,
-                  title: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Icon(
-                          Icons.menu_book,
-                          color: page>=MangaTopPage.page && page<=MangaSearchPage.page ? focusColor : defaultColor,
-                        ),
-                      ),
-                      Text(
-                        'Manga',
-                        style: GoogleFonts.notoSans(
-                          fontSize: 14.0,
-                          color: page>=MangaTopPage.page && page<=MangaSearchPage.page ? focusColor : defaultColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                  children: [
-                    for(int i=5;i<=6;i++)
-                      _buildListTile(context, pageList[i]),
-                  ],
-                ),
+                for(int i=0;i<pageList.length;i++)
+                  _buildListTile(context, pageList[i]),
               ],
             ),
           ),
@@ -168,23 +117,22 @@ class MainScaffold extends StatelessWidget {
 
   ListTile _buildListTile(BuildContext context, Map pageInfo) {
     return ListTile(
-      title: Padding(
-        padding: EdgeInsets.only(left: pageInfo['title'] == HomePage.title ? 0.0 : 30.0),
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Icon(
-                pageInfo['icon'],
-                color: page == pageInfo['page'] ? focusColor: defaultColor,
-              ),
+      selectedTileColor: MainScaffold.focusColor,
+      hoverColor: MainScaffold.focusColor,
+      title: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Icon(
+              pageInfo['icon'],
+              color: defaultColor,
             ),
-            Text(
-              pageInfo['title'],
-              style: GoogleFonts.notoSans(color: page == pageInfo['page'] ? focusColor : defaultColor),
-            ),
-          ],
-        ),
+          ),
+          Text(
+            pageInfo['title'],
+            style: GoogleFonts.notoSans(color: defaultColor),
+          ),
+        ],
       ),
       onTap: () {
         if(page != pageInfo['page']) {
