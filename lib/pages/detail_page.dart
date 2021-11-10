@@ -1,30 +1,47 @@
 import 'package:anime_list_project/models/anime.dart';
 import 'package:anime_list_project/models/genre.dart';
 import 'package:anime_list_project/models/manga.dart';
-import 'package:anime_list_project/pages/anime/anime_search_page.dart';
-import 'package:anime_list_project/pages/manga/manga_search_page.dart';
 import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
+import 'package:anime_list_project/utils/page_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DetailPage extends StatelessWidget {
-  final dynamic info;
-  const DetailPage({Key? key, required this.info}) : super(key: key);
+  final PageInfo pageDetail;
+  const DetailPage({Key? key, required this.pageDetail}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(16.0),
-      children: [
-        Card(
-          color: MainScaffold.backgroundColor.withOpacity(0.5),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: info is Anime ? _buildAnimeContent(context, info as Anime)
-                                 : _buildMangaContent(context, info as Manga),
+    final args = ModalRoute.of(context)!.settings.arguments;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          pageDetail.title,
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        backgroundColor: MainScaffold.backgroundColor,
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/bg.png"),
+            fit: BoxFit.cover,
           ),
         ),
-      ],
+        child: ListView(
+          padding: const EdgeInsets.all(16.0),
+          children: [
+            Card(
+              color: MainScaffold.backgroundColor.withOpacity(0.5),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: args is Anime ? _buildAnimeContent(context, args)
+                    : _buildMangaContent(context, args as Manga),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -129,7 +146,7 @@ class DetailPage extends StatelessWidget {
         onPressed: () {
           Navigator.pushReplacementNamed(
             context,
-            genre.type == 'anime' ? AnimeSearchPage.routeName : MangaSearchPage.routeName,
+            genre.type == 'anime' ? pageList['search_anime']!.routeName : pageList['search_manga']!.routeName,
             arguments: genre,
           );
         },

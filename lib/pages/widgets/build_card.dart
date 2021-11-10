@@ -1,9 +1,7 @@
 import 'package:anime_list_project/models/anime.dart';
 import 'package:anime_list_project/models/manga.dart';
-import 'package:anime_list_project/pages/anime/anime_detail_page.dart';
-import 'package:anime_list_project/pages/anime/anime_top_page.dart';
-import 'package:anime_list_project/pages/manga/manga_detail_page.dart';
 import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
+import 'package:anime_list_project/utils/page_detail.dart';
 import 'package:flutter/material.dart';
 
 class BuildCard extends StatelessWidget {
@@ -23,7 +21,7 @@ class BuildCard extends StatelessWidget {
       material = material as Anime;
       title = material.title!;
       image = material.imageUrl!;
-      content1 = material.type != null && endPoint != AnimeTopPage.endPoint
+      content1 = material.type != null && endPoint != pageList['top_anime']!.endPoint
           ? 'Type: ${material.type!}'
           : 'Rank: ${material.rank!}';
       content2 = material.source != null
@@ -31,7 +29,7 @@ class BuildCard extends StatelessWidget {
           : endPoint.contains('top')
           ? 'Score: ${material.score!}'
           : 'Episode: ${material.episodes!}';
-      route = AnimeDetailPage.routeName;
+      route = pageList['detail_anime']!.routeName;
     }
     else {
       material = material as Manga;
@@ -45,7 +43,7 @@ class BuildCard extends StatelessWidget {
           : material.volumes == null
           ? 'Volume: -'
           : 'Volume: ${material.volumes!}';
-      route = MangaDetailPage.routeName;
+      route = pageList['detail_manga']!.routeName;
     }
     return Card(
       color: MainScaffold.backgroundColor.withOpacity(0.5),

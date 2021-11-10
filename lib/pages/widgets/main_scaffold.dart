@@ -1,10 +1,4 @@
-import 'package:anime_list_project/pages/anime/anime_schedule_page.dart';
-import 'package:anime_list_project/pages/anime/anime_search_page.dart';
-import 'package:anime_list_project/pages/anime/anime_season_page.dart';
-import 'package:anime_list_project/pages/anime/anime_top_page.dart';
-import 'package:anime_list_project/pages/home/home_page.dart';
-import 'package:anime_list_project/pages/manga/manga_search_page.dart';
-import 'package:anime_list_project/pages/manga/manga_top_page.dart';
+import 'package:anime_list_project/utils/page_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,50 +8,6 @@ class MainScaffold extends StatelessWidget {
   final int page, initialPage;
   final List<Tab>? tabs;
   static const Color focusColor = Colors.blue, defaultColor = Colors.white, backgroundColor = Colors.black;
-  static const List<Map<String, dynamic>> pageList = [
-    {
-      "icon": Icons.home,
-      "page" : HomePage.page,
-      "title": HomePage.title,
-      "routeName": HomePage.routeName,
-    },
-    {
-      "icon": Icons.cloud,
-      "page" : AnimeSeasonPage.page,
-      "title": AnimeSeasonPage.title,
-      "routeName": AnimeSeasonPage.routeName,
-    },
-    {
-      "icon": Icons.date_range,
-      "page" : AnimeSchedulePage.page,
-      "title": AnimeSchedulePage.title,
-      "routeName": AnimeSchedulePage.routeName,
-    },
-    {
-      "icon": Icons.whatshot,
-      "page" : AnimeTopPage.page,
-      "title": AnimeTopPage.title,
-      "routeName": AnimeTopPage.routeName,
-    },
-    {
-      "icon": Icons.search,
-      "page" : AnimeSearchPage.page,
-      "title": AnimeSearchPage.title,
-      "routeName": AnimeSearchPage.routeName,
-    },
-    {
-      "icon": Icons.whatshot,
-      "page" : MangaTopPage.page,
-      "title": MangaTopPage.title,
-      "routeName": MangaTopPage.routeName,
-    },
-    {
-      "icon": Icons.search,
-      "page" : MangaSearchPage.page,
-      "title": MangaSearchPage.title,
-      "routeName": MangaSearchPage.routeName,
-    },
-  ];
 
   const MainScaffold({
     Key? key,
@@ -96,8 +46,9 @@ class MainScaffold extends StatelessWidget {
                   margin: EdgeInsets.zero,
                   padding: EdgeInsets.zero,
                 ),
-                for(int i=0;i<pageList.length;i++)
-                  _buildListTile(context, pageList[i]),
+                for(var key in pageList.keys)
+                  if(key != 'detail_anime' && key != 'detail_manga')
+                    _buildListTile(context, pageList[key]!),
               ],
             ),
           ),
@@ -115,7 +66,7 @@ class MainScaffold extends StatelessWidget {
     );
   }
 
-  ListTile _buildListTile(BuildContext context, Map pageInfo) {
+  ListTile _buildListTile(BuildContext context, PageInfo pageDetail) {
     return ListTile(
       selectedTileColor: MainScaffold.focusColor,
       hoverColor: MainScaffold.focusColor,
@@ -124,28 +75,28 @@ class MainScaffold extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Icon(
-              pageInfo['icon'],
+              pageDetail.icon,
               color: defaultColor,
             ),
           ),
           Text(
-            pageInfo['title'],
+            pageDetail.title,
             style: GoogleFonts.notoSans(color: defaultColor),
           ),
         ],
       ),
       onTap: () {
-        if(page != pageInfo['page']) {
+        if(page != pageDetail.page) {
           Navigator.pushReplacementNamed(
             context,
-            pageInfo['routeName'],
+            pageDetail.routeName,
           );
         }
         else {
           Navigator.pop(context);
         }
       },
-      selected: page == pageInfo['page'],
+      selected: page == pageDetail.page,
     );
   }
 }

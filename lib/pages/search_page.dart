@@ -3,19 +3,15 @@ import 'package:anime_list_project/pages/widgets/build_card.dart';
 import 'package:anime_list_project/pages/widgets/build_topic_card.dart';
 import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
 import 'package:anime_list_project/utils/fetch_future.dart';
+import 'package:anime_list_project/utils/page_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchPage extends StatefulWidget {
-  final dynamic args;
-  final String title, endPoint;
-  final int page;
+  final PageInfo pageDetail;
   const SearchPage({
     Key? key,
-    required this.args,
-    required this.title,
-    required this.endPoint,
-    required this.page,
+    required this.pageDetail,
   }) : super(key: key);
 
   @override
@@ -38,7 +34,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    _type = widget.endPoint.contains('manga') ? 'manga' : 'anime';
+    _type = widget.pageDetail.endPoint!.contains('manga') ? 'manga' : 'anime';
   }
 
   @override
@@ -64,21 +60,22 @@ class _SearchPageState extends State<SearchPage> {
     setState(() {
       _mode = 'genre';
       _genre = genre;
-      _futureGenreList = fetchApi('${widget.endPoint}/${_genre!.malId}');
+      _futureGenreList = fetchApi('${widget.pageDetail.endPoint}/${_genre!.malId}');
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    var args = ModalRoute.of(context)?.settings.arguments;
     return MainScaffold(
-      title: widget.title,
-      initialPage: widget.args != null ? 1 : 0,
+      title: widget.pageDetail.title,
+      initialPage: args != null ? 1 : 0,
       tabs: _searchTab,
-      page: widget.page,
+      page: widget.pageDetail.page!,
       body: TabBarView(
         children: _searchTab.map((tab) {
           if(tab.text! == 'Genre') {
-            return _genreSearch();
+            return _genreSearch(args);
           }
           return _nameSearch();
         }).toList(),
@@ -115,9 +112,9 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Widget _genreSearch() {
-    if(widget.args != null && _genre == null) {
-      _genreSearchSubmit(widget.args as Genre);
+  Widget _genreSearch(args) {
+    if(args != null && _genre == null) {
+      _genreSearchSubmit(args as Genre);
     }
     List<Genre> genreList = Genre.genreList(_type);
     return _genre == null ? _buildGenreTag(genreList) :
@@ -151,7 +148,7 @@ class _SearchPageState extends State<SearchPage> {
             padding: const EdgeInsets.all(8.0),
             itemCount: list.length,
             itemBuilder: (BuildContext context, int index) {
-              return BuildCard(item: list[index], endPoint: widget.endPoint);
+              return BuildCard(item: list[index], endPoint: widget.pageDetail.endPoint!);
             },
           );
         }

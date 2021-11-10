@@ -1,17 +1,15 @@
 import 'package:anime_list_project/models/anime.dart';
-import 'package:anime_list_project/pages/anime/anime_schedule_page.dart';
-import 'package:anime_list_project/pages/anime/anime_search_page.dart';
 import 'package:anime_list_project/pages/widgets/build_card.dart';
 import 'package:anime_list_project/pages/widgets/build_topic_card.dart';
 import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
 import 'package:anime_list_project/utils/fetch_future.dart';
+import 'package:anime_list_project/utils/page_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SelectPage extends StatefulWidget {
-  final String routeName, endPoint;
-  final Map<String, dynamic>? query;
-  const SelectPage({Key? key, required this.routeName, required this.endPoint, this.query}) : super(key: key);
+  final PageInfo pageDetail;
+  const SelectPage({Key? key, required this.pageDetail}) : super(key: key);
 
   @override
   _SelectPageState createState() => _SelectPageState();
@@ -34,81 +32,83 @@ class _SelectPageState extends State<SelectPage> {
   void initState() {
     super.initState();
     _futureList = fetchApi(
-      widget.endPoint,
-      query: widget.query,
+      widget.pageDetail.endPoint!,
       page: _page,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<dynamic>(
-      future: _futureList,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+    return MainScaffold(
+      title: widget.pageDetail.title,
+      page: widget.pageDetail.page!,
+      body: FutureBuilder<dynamic>(
+        future: _futureList,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
 
-        if (snapshot.hasData) {
-          var list = snapshot.data;
-          return ListView.builder(
-            shrinkWrap: widget.endPoint.contains(AnimeSearchPage.endPoint),
-            padding: const EdgeInsets.all(8.0),
-            itemCount: list.length,
-            itemBuilder: (BuildContext context, int index) {
-              if(widget.endPoint == AnimeSchedulePage.endPoint) {
-                return _buildScheduleCard(context, list[index], _weekStyle[index]);
-              }
-              return index == list.length-1 && widget.endPoint.contains('top')
-              ? _buildTopRankingCard(context, list[index])
-              : BuildCard(item: list[index], endPoint: widget.endPoint);
-            },
-          );
-        }
+          if (snapshot.hasData) {
+            var list = snapshot.data;
+            return ListView.builder(
+              shrinkWrap: widget.pageDetail.endPoint!.contains(pageList['search_anime']!.endPoint!),
+              padding: const EdgeInsets.all(8.0),
+              itemCount: list.length,
+              itemBuilder: (BuildContext context, int index) {
+                if(widget.pageDetail.endPoint == pageList['schedule_anime']!.endPoint) {
+                  return _buildScheduleCard(context, list[index], _weekStyle[index]);
+                }
+                return index == list.length-1 && widget.pageDetail.endPoint!.contains('top')
+                ? _buildTopRankingCard(context, list[index])
+                : BuildCard(item: list[index], endPoint: widget.pageDetail.endPoint!);
+              },
+            );
+          }
 
-        if (snapshot.hasError) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Error: ${snapshot.error}',
-                  style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _futureList = fetchApi(
-                        widget.endPoint,
-                        query: widget.query,
-                        page: _page,
-                      );
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: MainScaffold.backgroundColor,
-                  ),
-                  child: Text(
-                    'Try again!',
+          if (snapshot.hasError) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Error: ${snapshot.error}',
                     style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
                   ),
-                ),
-              ],
-            ),
-          );
-        }
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _futureList = fetchApi(
+                          widget.pageDetail.endPoint!,
+                          page: _page,
+                        );
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: MainScaffold.backgroundColor,
+                    ),
+                    child: Text(
+                      'Try again!',
+                      style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
 
-        return const SizedBox.shrink();
-      },
+          return const SizedBox.shrink();
+        },
+      ),
     );
   }
 
   Column _buildTopRankingCard(BuildContext context, list) {
     return Column(
       children: [
-        BuildCard(item: list, endPoint: widget.endPoint),
+        BuildCard(item: list, endPoint: widget.pageDetail.endPoint!),
         Row(
           mainAxisAlignment: _page<2 ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: [
@@ -119,8 +119,7 @@ class _SelectPageState extends State<SelectPage> {
                   setState(() {
                     _page>1 ? _page-- : _page++;
                     _futureList = fetchApi(
-                      widget.endPoint,
-                      query: widget.query,
+                      widget.pageDetail.endPoint!,
                       page: _page,
                     );
                   });
@@ -147,7 +146,7 @@ class _SelectPageState extends State<SelectPage> {
       itemCount: item.length,
       itemBuilder: (BuildContext context, int index) {
         return index != 0
-        ? BuildCard(item: item[index], endPoint: widget.endPoint)
+        ? BuildCard(item: item[index], endPoint: widget.pageDetail.endPoint!)
         : Column(
           children: [
             BuildTopicCard(
@@ -155,7 +154,7 @@ class _SelectPageState extends State<SelectPage> {
               color: weekStyle[1],
               margin: const EdgeInsets.all(8.0),
             ),
-            BuildCard(item: item[index], endPoint: widget.endPoint),
+            BuildCard(item: item[index], endPoint: widget.pageDetail.endPoint!),
           ],
         );
       }

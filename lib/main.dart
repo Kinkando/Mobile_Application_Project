@@ -1,14 +1,10 @@
-import 'package:anime_list_project/pages/anime/anime_detail_page.dart';
-import 'package:anime_list_project/pages/anime/anime_schedule_page.dart';
-import 'package:anime_list_project/pages/anime/anime_search_page.dart';
-import 'package:anime_list_project/pages/anime/anime_season_page.dart';
-import 'package:anime_list_project/pages/anime/anime_top_page.dart';
-import 'package:anime_list_project/pages/manga/manga_detail_page.dart';
-import 'package:anime_list_project/pages/manga/manga_search_page.dart';
-import 'package:anime_list_project/pages/manga/manga_top_page.dart';
+import 'package:anime_list_project/pages/detail_page.dart';
+import 'package:anime_list_project/pages/search_page.dart';
+import 'package:anime_list_project/pages/select_page.dart';
 import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
+import 'package:anime_list_project/utils/page_detail.dart';
 import 'package:flutter/material.dart';
-import 'package:anime_list_project/pages/home/home_page.dart';
+import 'package:anime_list_project/pages/home_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -16,11 +12,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  static const appName = 'Unirest';
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: HomePage.appName,
+      title: appName,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textTheme: TextTheme(
@@ -30,17 +27,17 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
-        HomePage.routeName: (context) => const HomePage(),
-        AnimeSeasonPage.routeName: (context) => const AnimeSeasonPage(),
-        AnimeSchedulePage.routeName: (context) => const AnimeSchedulePage(),
-        AnimeTopPage.routeName: (context) => const AnimeTopPage(),
-        AnimeSearchPage.routeName: (context) => const AnimeSearchPage(),
-        AnimeDetailPage.routeName: (context) => const AnimeDetailPage(),
-        MangaTopPage.routeName: (context) => const MangaTopPage(),
-        MangaSearchPage.routeName: (context) => const MangaSearchPage(),
-        MangaDetailPage.routeName: (context) => const MangaDetailPage(),
+        pageList['home']!.routeName: (context) => HomePage(),
+        pageList['seasonal_anime']!.routeName: (context) => SelectPage(pageDetail: pageList['seasonal_anime']!),
+        pageList['schedule_anime']!.routeName: (context) => SelectPage(pageDetail: pageList['schedule_anime']!),
+        pageList['top_anime']!.routeName: (context) => SelectPage(pageDetail: pageList['top_anime']!),
+        pageList['top_manga']!.routeName: (context) => SelectPage(pageDetail: pageList['top_manga']!),
+        pageList['search_anime']!.routeName: (context) => SearchPage(pageDetail: pageList['search_anime']!),
+        pageList['search_manga']!.routeName: (context) => SearchPage(pageDetail: pageList['search_manga']!),
+        pageList['detail_anime']!.routeName: (context) => DetailPage(pageDetail: pageList['detail_anime']!),
+        pageList['detail_manga']!.routeName: (context) => DetailPage(pageDetail: pageList['detail_manga']!),
       },
-      initialRoute: HomePage.routeName, //หน้าเริ่มต้น
+      initialRoute: pageList['home']!.routeName,
     );
   }
 }
