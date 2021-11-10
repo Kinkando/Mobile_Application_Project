@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
       padding: const EdgeInsets.only(top: 16.0, left: 16.0),
       child: Row(
         children: [
-          for(int i=0;i<2;i++)
+          for(int i=0;i<pageDetail.length;i++)
             Expanded(
               child: Card(
                 color: MainScaffold.backgroundColor,
