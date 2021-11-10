@@ -1,4 +1,4 @@
-# Unirest Application
+# Unikume Application
 
 Mobile Application Development Project (SU : 517324)
 
