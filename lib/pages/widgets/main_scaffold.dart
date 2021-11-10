@@ -40,7 +40,7 @@ class MainScaffold extends StatelessWidget {
                 DrawerHeader(
                   decoration: const BoxDecoration(color: backgroundColor),
                   child: Image.asset(
-                    'assets/images/drawer_header.jpg',
+                    'assets/images/logo.png',
                     fit: BoxFit.cover,
                   ),
                   margin: EdgeInsets.zero,
