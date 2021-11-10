@@ -46,8 +46,15 @@ class MainScaffold extends StatelessWidget {
                   margin: EdgeInsets.zero,
                   padding: EdgeInsets.zero,
                 ),
+                _buildTopicTile('Main Menu'),
+                _buildListTile(context, pageList['home']!),
+                _buildTopicTile('Anime'),
                 for(var key in pageList.keys)
-                  if(key != 'detail_anime' && key != 'detail_manga')
+                  if(key.contains('anime') && !key.contains('detail'))
+                    _buildListTile(context, pageList[key]!),
+                _buildTopicTile('Manga'),
+                for(var key in pageList.keys)
+                  if(key.contains('manga') && !key.contains('detail'))
                     _buildListTile(context, pageList[key]!),
               ],
             ),
@@ -62,6 +69,16 @@ class MainScaffold extends StatelessWidget {
           ),
           child: body,
         ),
+      ),
+    );
+  }
+
+  Padding _buildTopicTile(String topic) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0, bottom: 8.0, left: 16.0),
+      child: Text(
+        topic,
+        style: GoogleFonts.notoSans(fontSize: 16.0, color: defaultColor.withOpacity(0.5)),
       ),
     );
   }
