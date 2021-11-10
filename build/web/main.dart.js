@@ -19876,21 +19876,20 @@ if(o==null){o=H.a([],s)
 n.q(0,p,o)
 p=o}else p=o
 p.push(q)}return n}},Z={
-nX(a,b,c){var s=0,r=P.a4(t.z),q,p,o,n,m,l,k
-var $async$nX=P.a_(function(d,e){if(d===1)return P.a0(e,r)
-while(true)switch(s){case 0:if(C.b.v(a,"top"))a+="/"+b
-s=3
-return P.a7(new A.QL().uG(0,a,c),$async$nX)
-case 3:p=e
-if(!C.b.v(a,"manga")){if(a==="schedule"){o=H.a([],t.cg)
-for(n=J.aJ(p),m=t.Ai;n.t();){l=n.gB(n)
-k=H.a([],m)
-J.jZ(l,new Z.ac7(k))
-o.push(k)}q=o
+nX(a,b){var s=0,r=P.a4(t.z),q,p,o,n,m,l,k
+var $async$nX=P.a_(function(c,d){if(c===1)return P.a0(d,r)
+while(true)switch(s){case 0:s=3
+return P.a7(new A.QL().uG(0,a,b),$async$nX)
+case 3:k=d
+if(!C.b.v(a,"manga")){if(a==="schedule"){p=H.a([],t.cg)
+for(o=J.aJ(k),n=t.Ai;o.t();){m=o.gB(o)
+l=H.a([],n)
+J.jZ(m,new Z.ac7(l))
+p.push(l)}q=p
 s=1
-break}q=J.lA(p,new Z.ac8(),t.xE).eO(0)
+break}q=J.lA(k,new Z.ac8(),t.xE).eO(0)
 s=1
-break}q=J.lA(p,new Z.ac9(),t.nn).eO(0)
+break}q=J.lA(k,new Z.ac9(),t.nn).eO(0)
 s=1
 break
 case 1:return P.a1(q,r)}})
@@ -37425,13 +37424,13 @@ s=this.b
 q.r=s
 if(s.length!==0){s="search/"+q.gzw()
 r=q.r
-q.y=Z.nX(s,0,r.length!==0?P.aI(["q",r],t.N,t.z):null)}},
+q.y=Z.nX(s,r.length!==0?P.aI(["q",r],t.N,t.z):null)}},
 $S:0}
 F.a9k.prototype={
 $0(){var s=this.a
 s.x="genre"
 s.f=this.b
-s.z=Z.nX(H.d(s.a.c.c)+"/"+s.f.a,0,null)},
+s.z=Z.nX(H.d(s.a.c.c)+"/"+s.f.a,null)},
 $S:0}
 F.a9n.prototype={
 $1(a){var s,r,q
@@ -37478,7 +37477,8 @@ aZ(){var s,r=this
 r.bp()
 s=r.a.c.c
 s.toString
-r.d=Z.nX(s,r.f,null)},
+if(C.b.v(s,"top"))s=s+"/"+r.f
+r.d=Z.nX(s,null)},
 N(a,b){var s,r=this.a.c,q=r.d
 q.toString
 s=this.d
@@ -37529,7 +37529,8 @@ $S:0}
 M.a9r.prototype={
 $0(){var s=this.a,r=s.a.c.c
 r.toString
-s.d=Z.nX(r,s.f,null)},
+if(C.b.v(r,"top"))r=r+"/"+s.f
+s.d=Z.nX(r,null)},
 $S:0}
 M.a9q.prototype={
 $0(){var s=this.a
@@ -37540,7 +37541,9 @@ $0(){var s,r=this.a,q=r.f
 q=q>1?r.f=q-1:r.f=q+1
 s=r.a.c.c
 s.toString
-r.d=Z.nX(s,q,null)},
+if(C.b.v(s,"top"))q=s+"/"+q
+else q=s
+r.d=Z.nX(q,null)},
 $S:0}
 M.a9o.prototype={
 $2(a,b){var s,r,q=this.b,p=this.a,o=J.ax(q)
