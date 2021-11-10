@@ -1,7 +1,7 @@
 import 'package:anime_list_project/models/anime.dart';
 import 'package:anime_list_project/models/manga.dart';
 import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
-import 'package:anime_list_project/utils/page_detail.dart';
+import 'package:anime_list_project/models/page_info.dart';
 import 'package:flutter/material.dart';
 
 class BuildCard extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:anime_list_project/pages/detail_page.dart';
 import 'package:anime_list_project/pages/search_page.dart';
 import 'package:anime_list_project/pages/select_page.dart';
 import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
-import 'package:anime_list_project/utils/page_detail.dart';
+import 'package:anime_list_project/models/page_info.dart';
 import 'package:flutter/material.dart';
 import 'package:anime_list_project/pages/home_page.dart';
 import 'package:google_fonts/google_fonts.dart';

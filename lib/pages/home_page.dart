@@ -1,6 +1,6 @@
 import 'package:anime_list_project/main.dart';
 import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
-import 'package:anime_list_project/utils/page_detail.dart';
+import 'package:anime_list_project/models/page_info.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
