@@ -32,8 +32,9 @@ class _SelectPageState extends State<SelectPage> {
   void initState() {
     super.initState();
     _futureList = fetchApi(
-      widget.pageDetail.endPoint!,
-      page: _page,
+      widget.pageDetail.endPoint!.contains('top')
+          ? '${widget.pageDetail.endPoint!}/$_page'
+          : widget.pageDetail.endPoint!,
     );
   }
 
@@ -81,8 +82,9 @@ class _SelectPageState extends State<SelectPage> {
                     onPressed: () {
                       setState(() {
                         _futureList = fetchApi(
-                          widget.pageDetail.endPoint!,
-                          page: _page,
+                          widget.pageDetail.endPoint!.contains('top')
+                              ? '${widget.pageDetail.endPoint!}/$_page'
+                              : widget.pageDetail.endPoint!,
                         );
                       });
                     },
@@ -119,8 +121,9 @@ class _SelectPageState extends State<SelectPage> {
                   setState(() {
                     _page>1 ? _page-- : _page++;
                     _futureList = fetchApi(
-                      widget.pageDetail.endPoint!,
-                      page: _page,
+                      widget.pageDetail.endPoint!.contains('top')
+                      ? '${widget.pageDetail.endPoint!}/$_page'
+                      : widget.pageDetail.endPoint!,
                     );
                   });
                 },
