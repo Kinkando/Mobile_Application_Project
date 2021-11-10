@@ -5,11 +5,7 @@ import 'package:anime_list_project/services/api.dart';
 Future<dynamic> fetchApi(
   String endPoint, {
   Map<String, dynamic>? query,
-  int page = 0,
 }) async {
-  if (endPoint.contains('top')) {
-    endPoint += '/$page';
-  }
   final List list = await Api().fetch(endPoint, queryParams: query);
   if (!endPoint.contains('manga')) {
     if (endPoint == 'schedule') {
