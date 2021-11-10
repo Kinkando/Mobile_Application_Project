@@ -75,7 +75,7 @@ class MainScaffold extends StatelessWidget {
 
   Padding _buildTopicTile(String topic) {
     return Padding(
-      padding: const EdgeInsets.only(top: 16.0, bottom: 8.0, left: 16.0),
+      padding: const EdgeInsets.only(top: 24.0, bottom: 8.0, left: 16.0),
       child: Text(
         topic,
         style: GoogleFonts.notoSans(fontSize: 16.0, color: defaultColor.withOpacity(0.5)),
