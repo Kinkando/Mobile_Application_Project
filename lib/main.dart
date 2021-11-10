@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:anime_list_project/pages/detail_page.dart';
 import 'package:anime_list_project/pages/search_page.dart';
 import 'package:anime_list_project/pages/select_page.dart';
@@ -12,7 +14,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  static const appName = 'Unirest';
+  static const appName = 'Unikume';
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
+        SplashScreen.routeName: (context) => const SplashScreen(),
         pageList['home']!.routeName: (context) => HomePage(),
         pageList['seasonal_anime']!.routeName: (context) => SelectPage(pageDetail: pageList['seasonal_anime']!),
         pageList['schedule_anime']!.routeName: (context) => SelectPage(pageDetail: pageList['schedule_anime']!),
@@ -37,7 +40,41 @@ class MyApp extends StatelessWidget {
         pageList['detail_anime']!.routeName: (context) => DetailPage(pageDetail: pageList['detail_anime']!),
         pageList['detail_manga']!.routeName: (context) => DetailPage(pageDetail: pageList['detail_manga']!),
       },
-      initialRoute: pageList['home']!.routeName,
+      initialRoute: SplashScreen.routeName,
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  static const routeName = '/';
+  const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(
+      const Duration(seconds: 3),
+          () => Navigator.pushReplacementNamed(context, pageList['home']!.routeName),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/splash_screen.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
     );
   }
 }
