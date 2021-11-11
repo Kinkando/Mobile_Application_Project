@@ -3,6 +3,7 @@ import 'package:anime_list_project/models/page_info.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
+  static final _homeScrollController = ScrollController();
   final PageInfo pageDetail = pageList['home']!;
   final List<PageInfo> _pageIteration = [
     for(var key in pageList.keys)
@@ -17,9 +18,10 @@ class HomePage extends StatelessWidget {
       title: pageDetail.title,
       page: pageDetail.page!,
       body: ListView(
+        controller: _homeScrollController,
         children: [
           for(int i=0;i<_pageIteration.length;i+=2)
-              _buildCard(context, [_pageIteration[i], _pageIteration[i+1]]),
+            _buildCard(context, [_pageIteration[i], _pageIteration[i+1]]),
         ],
       ),
     );

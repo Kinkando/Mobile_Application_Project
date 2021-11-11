@@ -27,6 +27,8 @@ class _SelectPageState extends State<SelectPage> {
     ["Sunday", Colors.red],
   ];
   int _page = 1;
+  final _scheduleScrollController = ScrollController();
+  final _futureScrollController = ScrollController();
 
   @override
   void initState() {
@@ -57,14 +59,15 @@ class _SelectPageState extends State<SelectPage> {
             return ListView.builder(
               shrinkWrap: widget.pageDetail.endPoint!.contains(pageList['search_anime']!.endPoint!),
               padding: const EdgeInsets.all(8.0),
+              controller: _futureScrollController,
               itemCount: list.length,
               itemBuilder: (BuildContext context, int index) {
                 if(widget.pageDetail.endPoint == pageList['schedule_anime']!.endPoint) {
                   return _buildScheduleCard(context, list[index], _weekStyle[index]);
                 }
                 return index == list.length-1 && widget.pageDetail.endPoint!.contains('top')
-                ? _buildTopRankingCard(context, list[index])
-                : BuildCard(item: list[index], endPoint: widget.pageDetail.endPoint!);
+                    ? _buildTopRankingCard(context, list[index])
+                    : BuildCard(item: list[index], endPoint: widget.pageDetail.endPoint!);
               },
             );
           }
@@ -122,8 +125,8 @@ class _SelectPageState extends State<SelectPage> {
                     _page>1 ? _page-- : _page++;
                     _futureList = fetchApi(
                       widget.pageDetail.endPoint!.contains('top')
-                      ? '${widget.pageDetail.endPoint!}/$_page'
-                      : widget.pageDetail.endPoint!,
+                          ? '${widget.pageDetail.endPoint!}/$_page'
+                          : widget.pageDetail.endPoint!,
                     );
                   });
                 },
@@ -144,23 +147,24 @@ class _SelectPageState extends State<SelectPage> {
 
   Widget _buildScheduleCard(BuildContext context, List<Anime> item, List weekStyle) {
     return ListView.builder(
-      shrinkWrap: true,
-      padding: const EdgeInsets.all(8.0),
-      itemCount: item.length,
-      itemBuilder: (BuildContext context, int index) {
-        return index != 0
-        ? BuildCard(item: item[index], endPoint: widget.pageDetail.endPoint!)
-        : Column(
-          children: [
-            BuildTopicCard(
-              topic: weekStyle[0],
-              color: weekStyle[1],
-              margin: const EdgeInsets.all(8.0),
-            ),
-            BuildCard(item: item[index], endPoint: widget.pageDetail.endPoint!),
-          ],
-        );
-      }
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(8.0),
+        controller: _scheduleScrollController,
+        itemCount: item.length,
+        itemBuilder: (BuildContext context, int index) {
+          return index != 0
+              ? BuildCard(item: item[index], endPoint: widget.pageDetail.endPoint!)
+              : Column(
+            children: [
+              BuildTopicCard(
+                topic: weekStyle[0],
+                color: weekStyle[1],
+                margin: const EdgeInsets.all(8.0),
+              ),
+              BuildCard(item: item[index], endPoint: widget.pageDetail.endPoint!),
+            ],
+          );
+        }
     );
   }
 }

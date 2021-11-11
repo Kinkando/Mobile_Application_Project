@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class DetailPage extends StatelessWidget {
   final PageInfo pageDetail;
+  static final _scrollController = ScrollController();
   const DetailPage({Key? key, required this.pageDetail}) : super(key: key);
 
   @override
@@ -30,6 +31,7 @@ class DetailPage extends StatelessWidget {
         ),
         child: ListView(
           padding: const EdgeInsets.all(16.0),
+          controller: _scrollController,
           children: [
             Card(
               color: MainScaffold.backgroundColor.withOpacity(0.5),

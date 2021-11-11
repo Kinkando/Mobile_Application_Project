@@ -30,6 +30,8 @@ class _SearchPageState extends State<SearchPage> {
   Future<dynamic>? _futureNameList, _futureGenreList;
 
   final _controller = TextEditingController();
+  final _genreTagScrollController = ScrollController();
+  final _futureScrollController = ScrollController();
 
   @override
   void initState() {
@@ -74,62 +76,65 @@ class _SearchPageState extends State<SearchPage> {
       page: widget.pageDetail.page!,
       body: TabBarView(
         children: _searchTab.map((tab) {
+          List<Widget> widget = [];
           if(tab.text! == 'Genre') {
-            return _genreSearch(args);
+            widget = _genreSearch(args);
           }
-          return _nameSearch();
+          else {
+            widget.add(_nameSearch());
+            if(_name.isNotEmpty) {
+              widget.add(_buildFutureBuilder());
+            }
+          }
+          return ListView(
+            controller: _genreTagScrollController,
+            children: widget,
+          );
         }).toList(),
       ),
     );
   }
 
   Widget _nameSearch() {
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-          child: TextField(
-            onSubmitted: (text) => _nameSearchSubmit(text),
-            controller: _controller,
-            style: GoogleFonts.notoSans(
-              color: MainScaffold.defaultColor,
-            ),
-            decoration: InputDecoration(
-              hintStyle: GoogleFonts.notoSans(
-                color: MainScaffold.defaultColor,
-              ),
-              fillColor: MainScaffold.backgroundColor,
-              filled: true,
-              prefixIcon: const Icon(Icons.search, color: MainScaffold.defaultColor),
-              border: const OutlineInputBorder(),
-              hintText: 'Enter $_type name',
-            ),
-          ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+      child: TextField(
+        onSubmitted: (text) => _nameSearchSubmit(text),
+        controller: _controller,
+        style: GoogleFonts.notoSans(
+          color: MainScaffold.defaultColor,
         ),
-        if(_name.isNotEmpty)
-          _buildFutureBuilder(),
-      ],
+        decoration: InputDecoration(
+          hintStyle: GoogleFonts.notoSans(
+            color: MainScaffold.defaultColor,
+          ),
+          fillColor: MainScaffold.backgroundColor,
+          filled: true,
+          prefixIcon: const Icon(Icons.search, color: MainScaffold.defaultColor),
+          border: const OutlineInputBorder(),
+          hintText: 'Enter $_type name',
+        ),
+      ),
     );
   }
 
-  Widget _genreSearch(args) {
+  List<Widget> _genreSearch(args) {
     if(args != null && _genre == null) {
       _genreSearchSubmit(args as Genre);
     }
     List<Genre> genreList = Genre.genreList(_type);
-    return _genre == null ? _buildGenreTag(genreList) :
-    ListView(
-      children: [
-        BuildTopicCard(
-          color: Colors.black,
-          topic: _genre!.name,
-          margin: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-        ),
-        _buildFutureBuilder(),
-        _buildGenreTag(genreList),
-      ],
-    );
-  }
+    return _genre == null
+    ? [_buildGenreTag(genreList)]
+    : [
+    BuildTopicCard(
+    color: Colors.black,
+    topic: _genre!.name,
+    margin: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+    ),
+    _buildFutureBuilder(),
+    _buildGenreTag(genreList),
+    ];
+    }
 
   FutureBuilder<dynamic> _buildFutureBuilder() {
     return FutureBuilder<dynamic>(
@@ -146,6 +151,7 @@ class _SearchPageState extends State<SearchPage> {
           return ListView.builder(
             shrinkWrap: true,
             padding: const EdgeInsets.all(8.0),
+            controller: _futureScrollController,
             itemCount: list.length,
             itemBuilder: (BuildContext context, int index) {
               return BuildCard(item: list[index], endPoint: widget.pageDetail.endPoint!);
@@ -155,13 +161,13 @@ class _SearchPageState extends State<SearchPage> {
 
         if (snapshot.hasError) {
           return _mode == 'name'
-          ? const Center(
-              child: Padding(
-                padding: EdgeInsets.only(top: 8.0),
-                child: Text('Not Found'),
-              ),
-            )
-          : Center(
+              ? const Center(
+            child: Padding(
+              padding: EdgeInsets.only(top: 8.0),
+              child: Text('Not Found'),
+            ),
+          )
+              : Center(
             child: Padding(
               padding: const EdgeInsets.all(30.0),
               child: Column(

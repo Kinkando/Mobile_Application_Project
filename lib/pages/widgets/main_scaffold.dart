@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainScaffold extends StatelessWidget {
+  static const Color focusColor = Colors.blue, defaultColor = Colors.white, backgroundColor = Colors.black;
+  static final _drawerScrollController = ScrollController();
   final Widget body;
   final String title;
   final int page, initialPage;
   final List<Tab>? tabs;
-  static const Color focusColor = Colors.blue, defaultColor = Colors.white, backgroundColor = Colors.black;
 
   const MainScaffold({
     Key? key,
@@ -36,6 +37,7 @@ class MainScaffold extends StatelessWidget {
           child: Drawer(
             child: ListView(
               padding: EdgeInsets.zero,
+              controller: _drawerScrollController,
               children: [
                 DrawerHeader(
                   decoration: const BoxDecoration(color: backgroundColor),
