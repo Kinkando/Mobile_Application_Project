@@ -1,12 +1,8 @@
 import 'dart:async';
-
 import 'package:anime_list_project/pages/detail_page.dart';
-import 'package:anime_list_project/pages/search_page.dart';
-import 'package:anime_list_project/pages/select_page.dart';
-import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
 import 'package:anime_list_project/models/page_info.dart';
-import 'package:flutter/material.dart';
 import 'package:anime_list_project/pages/home_page.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -23,20 +19,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textTheme: TextTheme(
-          headline1: GoogleFonts.notoSans(fontSize: 24.0, color: MainScaffold.defaultColor, fontWeight: FontWeight.bold),
-          bodyText1: GoogleFonts.notoSans(fontSize: 14.0, color: MainScaffold.defaultColor, fontWeight: FontWeight.bold),
-          bodyText2: GoogleFonts.notoSans(fontSize: 14.0, color: MainScaffold.defaultColor),
+          headline1: GoogleFonts.notoSans(fontSize: 24.0, color: HomePage.defaultColor, fontWeight: FontWeight.bold),
+          bodyText1: GoogleFonts.notoSans(fontSize: 14.0, color: HomePage.defaultColor, fontWeight: FontWeight.bold),
+          bodyText2: GoogleFonts.notoSans(fontSize: 14.0, color: HomePage.defaultColor),
         ),
       ),
       routes: {
+        HomePage.routeName: (context) => const HomePage(),
         SplashScreen.routeName: (context) => const SplashScreen(),
-        pageList['home']!.routeName: (context) => HomePage(),
-        pageList['seasonal_anime']!.routeName: (context) => SelectPage(pageDetail: pageList['seasonal_anime']!),
-        pageList['schedule_anime']!.routeName: (context) => SelectPage(pageDetail: pageList['schedule_anime']!),
-        pageList['top_anime']!.routeName: (context) => SelectPage(pageDetail: pageList['top_anime']!),
-        pageList['top_manga']!.routeName: (context) => SelectPage(pageDetail: pageList['top_manga']!),
-        pageList['search_anime']!.routeName: (context) => SearchPage(pageDetail: pageList['search_anime']!),
-        pageList['search_manga']!.routeName: (context) => SearchPage(pageDetail: pageList['search_manga']!),
         pageList['detail_anime']!.routeName: (context) => DetailPage(pageDetail: pageList['detail_anime']!),
         pageList['detail_manga']!.routeName: (context) => DetailPage(pageDetail: pageList['detail_manga']!),
       },
@@ -59,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
       const Duration(seconds: 3),
-          () => Navigator.pushReplacementNamed(context, pageList['home']!.routeName),
+      () => Navigator.pushReplacementNamed(context, ''),
     );
   }
 
