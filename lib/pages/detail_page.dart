@@ -1,26 +1,25 @@
 import 'package:anime_list_project/models/anime.dart';
 import 'package:anime_list_project/models/genre.dart';
 import 'package:anime_list_project/models/manga.dart';
-import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
+import 'package:anime_list_project/pages/home_page.dart';
 import 'package:anime_list_project/models/page_info.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DetailPage extends StatelessWidget {
   final PageInfo pageDetail;
-  static final _scrollController = ScrollController();
   const DetailPage({Key? key, required this.pageDetail}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments;
+    final args = ModalRoute.of(context)?.settings.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           pageDetail.title,
           style: Theme.of(context).textTheme.headline1,
         ),
-        backgroundColor: MainScaffold.backgroundColor,
+        backgroundColor: HomePage.backgroundColor,
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -31,10 +30,9 @@ class DetailPage extends StatelessWidget {
         ),
         child: ListView(
           padding: const EdgeInsets.all(16.0),
-          controller: _scrollController,
           children: [
             Card(
-              color: MainScaffold.backgroundColor.withOpacity(0.5),
+              color: HomePage.backgroundColor.withOpacity(0.5),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: args is Anime ? _buildAnimeContent(context, args)
@@ -148,15 +146,15 @@ class DetailPage extends StatelessWidget {
         onPressed: () {
           Navigator.pushReplacementNamed(
             context,
-            genre.type == 'anime' ? pageList['search_anime']!.routeName : pageList['search_manga']!.routeName,
+            HomePage.routeName,
             arguments: genre,
           );
         },
-        child: Text(genre.name, style: GoogleFonts.notoSans(color: MainScaffold.backgroundColor)),
+        child: Text(genre.name, style: GoogleFonts.notoSans(color: HomePage.backgroundColor)),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
           minimumSize: const Size(10, 10),
-          primary: MainScaffold.defaultColor,
+          primary: HomePage.defaultColor,
         ),
       ),
     );
