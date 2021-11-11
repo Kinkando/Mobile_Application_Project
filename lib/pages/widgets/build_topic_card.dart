@@ -1,4 +1,4 @@
-import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
+import 'package:anime_list_project/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -28,7 +28,7 @@ class BuildTopicCard extends StatelessWidget {
             child: Text(
               topic,
               style: GoogleFonts.notoSans(
-                color: color == MainScaffold.backgroundColor ? Colors.white : Colors.black,
+                color: color == HomePage.backgroundColor ? Colors.white : Colors.black,
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
               ),

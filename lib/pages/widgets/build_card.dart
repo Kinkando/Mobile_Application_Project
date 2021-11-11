@@ -1,6 +1,6 @@
 import 'package:anime_list_project/models/anime.dart';
 import 'package:anime_list_project/models/manga.dart';
-import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
+import 'package:anime_list_project/pages/home_page.dart';
 import 'package:anime_list_project/models/page_info.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +46,7 @@ class BuildCard extends StatelessWidget {
       route = pageList['detail_manga']!.routeName;
     }
     return Card(
-      color: MainScaffold.backgroundColor.withOpacity(0.5),
+      color: HomePage.backgroundColor.withOpacity(0.5),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       margin: const EdgeInsets.all(8.0),
       elevation: 5.0,
