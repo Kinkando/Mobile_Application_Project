@@ -1,8 +1,8 @@
 import 'package:anime_list_project/models/genre.dart';
 import 'package:anime_list_project/models/page_info.dart';
-import 'package:anime_list_project/pages/genre_page.dart';
-import 'package:anime_list_project/pages/search_page.dart';
-import 'package:anime_list_project/pages/select_page.dart';
+import 'package:anime_list_project/pages/sub/genre_page.dart';
+import 'package:anime_list_project/pages/sub/search_page.dart';
+import 'package:anime_list_project/pages/sub/select_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,9 +24,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   late String _title;
   late int _page;
   final List<PageInfo> _pageIteration = [
-    for(var key in pageList.keys)
-      if(key != 'home' && key != 'detail_anime' && key != 'detail_manga')
-        pageList[key]!,
+    pageList['seasonal_anime']!,
+    pageList['schedule_anime']!,
+    pageList['top_anime']!,
+    pageList['top_manga']!,
+    pageList['genre_anime']!,
+    pageList['genre_manga']!,
+    pageList['search_anime']!,
+    pageList['search_manga']!,
   ];
 
   @override
