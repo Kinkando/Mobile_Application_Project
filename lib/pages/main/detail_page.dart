@@ -1,7 +1,7 @@
 import 'package:anime_list_project/models/anime.dart';
 import 'package:anime_list_project/models/genre.dart';
 import 'package:anime_list_project/models/manga.dart';
-import 'package:anime_list_project/pages/home_page.dart';
+import 'package:anime_list_project/pages/main/home_page.dart';
 import 'package:anime_list_project/models/page_info.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
