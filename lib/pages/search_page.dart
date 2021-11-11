@@ -1,42 +1,35 @@
-import 'package:anime_list_project/models/genre.dart';
+import 'package:anime_list_project/pages/home_page.dart';
 import 'package:anime_list_project/pages/widgets/build_card.dart';
-import 'package:anime_list_project/pages/widgets/build_topic_card.dart';
-import 'package:anime_list_project/pages/widgets/main_scaffold.dart';
 import 'package:anime_list_project/utils/fetch_future.dart';
 import 'package:anime_list_project/models/page_info.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchPage extends StatefulWidget {
+  static bool check = false;
   final PageInfo pageDetail;
-  const SearchPage({
-    Key? key,
-    required this.pageDetail,
-  }) : super(key: key);
+  const SearchPage({Key? key, required this.pageDetail}) : super(key: key);
 
   @override
   _SearchPageState createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
-  final List<Tab> _searchTab = <Tab>[
-    const Tab(text: 'Name'),
-    const Tab(text: 'Genre'),
-  ];
-
-  late String _type;
-  Genre? _genre;
-  String _name = '', _mode = '';
-  Future<dynamic>? _futureNameList, _futureGenreList;
+  String _name = '';
+  Future<dynamic>? _futureNameList;
 
   final _controller = TextEditingController();
-  final _genreTagScrollController = ScrollController();
-  final _futureScrollController = ScrollController();
+  final _scrollController = ScrollController();
 
-  @override
-  void initState() {
-    super.initState();
-    _type = widget.pageDetail.endPoint!.contains('manga') ? 'manga' : 'anime';
+  void _initial() {
+    setState(() {
+      if(SearchPage.check) {
+        _futureNameList = null;
+        _name = '';
+        _controller.clear();
+        SearchPage.check = false;
+      }
+    });
   }
 
   @override
@@ -45,53 +38,16 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
-  void _nameSearchSubmit(String text) {
-    setState(() {
-      _mode = 'name';
-      _name = text;
-      if(_name.isNotEmpty) {
-        _futureNameList = fetchApi(
-          'search/$_type',
-          query: _name.isNotEmpty ? {'q': _name} : null,
-        );
-      }
-    });
-  }
-
-  void _genreSearchSubmit(Genre genre) {
-    setState(() {
-      _mode = 'genre';
-      _genre = genre;
-      _futureGenreList = fetchApi('${widget.pageDetail.endPoint}/${_genre!.malId}');
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    var args = ModalRoute.of(context)?.settings.arguments;
-    return MainScaffold(
-      title: widget.pageDetail.title,
-      initialPage: args != null ? 1 : 0,
-      tabs: _searchTab,
-      page: widget.pageDetail.page!,
-      body: TabBarView(
-        children: _searchTab.map((tab) {
-          List<Widget> widget = [];
-          if(tab.text! == 'Genre') {
-            widget = _genreSearch(args);
-          }
-          else {
-            widget.add(_nameSearch());
-            if(_name.isNotEmpty) {
-              widget.add(_buildFutureBuilder());
-            }
-          }
-          return ListView(
-            controller: _genreTagScrollController,
-            children: widget,
-          );
-        }).toList(),
-      ),
+    _initial();
+    return ListView(
+      controller: _scrollController,
+      children: [
+        _nameSearch(),
+        if(_name.isNotEmpty)
+          _buildFutureBuilder(),
+      ],
     );
   }
 
@@ -102,43 +58,37 @@ class _SearchPageState extends State<SearchPage> {
         onSubmitted: (text) => _nameSearchSubmit(text),
         controller: _controller,
         style: GoogleFonts.notoSans(
-          color: MainScaffold.defaultColor,
+          color: HomePage.defaultColor,
         ),
         decoration: InputDecoration(
           hintStyle: GoogleFonts.notoSans(
-            color: MainScaffold.defaultColor,
+            color: HomePage.defaultColor,
           ),
-          fillColor: MainScaffold.backgroundColor,
+          fillColor: HomePage.backgroundColor,
           filled: true,
-          prefixIcon: const Icon(Icons.search, color: MainScaffold.defaultColor),
+          prefixIcon: const Icon(Icons.search, color: HomePage.defaultColor),
           border: const OutlineInputBorder(),
-          hintText: 'Enter $_type name',
+          hintText: 'Enter ${widget.pageDetail.endPoint!.substring(widget.pageDetail.endPoint!.indexOf('/')+1)} name',
         ),
       ),
     );
   }
 
-  List<Widget> _genreSearch(args) {
-    if(args != null && _genre == null) {
-      _genreSearchSubmit(args as Genre);
-    }
-    List<Genre> genreList = Genre.genreList(_type);
-    return _genre == null
-    ? [_buildGenreTag(genreList)]
-    : [
-        BuildTopicCard(
-          color: Colors.black,
-          topic: _genre!.name,
-          margin: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-        ),
-        _buildFutureBuilder(),
-        _buildGenreTag(genreList),
-      ];
-    }
+  void _nameSearchSubmit(String text) {
+    setState(() {
+      _name = text;
+      if(_name.isNotEmpty) {
+        _futureNameList = fetchApi(
+          widget.pageDetail.endPoint!,
+          query: _name.isNotEmpty ? {'q': _name} : null,
+        );
+      }
+    });
+  }
 
   FutureBuilder<dynamic> _buildFutureBuilder() {
     return FutureBuilder<dynamic>(
-      future: _mode == 'name' ? _futureNameList : _futureGenreList,
+      future: _futureNameList,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Center(
@@ -148,75 +98,28 @@ class _SearchPageState extends State<SearchPage> {
 
         if (snapshot.hasData) {
           var list = snapshot.data;
-          return ListView.builder(
-            shrinkWrap: true,
+          return Padding(
             padding: const EdgeInsets.all(8.0),
-            controller: _futureScrollController,
-            itemCount: list.length,
-            itemBuilder: (BuildContext context, int index) {
-              return BuildCard(item: list[index], endPoint: widget.pageDetail.endPoint!);
-            },
+            child: Column(
+                children: [
+                  for(int i=0;i<list.length;i++)
+                    BuildCard(item: list[i], endPoint: widget.pageDetail.endPoint!),
+                ]
+            ),
           );
         }
 
         if (snapshot.hasError) {
-          return _mode == 'name'
-          ? const Center(
-              child: Padding(
-                padding: EdgeInsets.only(top: 8.0),
-                child: Text('Not Found'),
-              ),
-            )
-          : Center(
+          return const Center(
             child: Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Error: ${snapshot.error}',
-                    style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => _genreSearchSubmit(_genre!),
-                    style: ElevatedButton.styleFrom(
-                      primary: MainScaffold.backgroundColor,
-                    ),
-                    child: Text(
-                      'Try again!',
-                      style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
-                    ),
-                  ),
-                ],
-              ),
+              padding: EdgeInsets.only(top: 8.0),
+              child: Text('Not Found'),
             ),
           );
         }
 
         return const SizedBox.shrink();
       },
-    );
-  }
-
-  Padding _buildGenreTag(List<Genre> genreList) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Wrap(
-        children: [
-          for(int i=0;i<genreList.length;i++)
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
-              child: ElevatedButton(
-                onPressed: () => _genreSearchSubmit(genreList[i]),
-                style: ElevatedButton.styleFrom(primary: MainScaffold.backgroundColor),
-                child: Text(
-                  genreList[i].name,
-                  style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
-                ),
-              ),
-            ),
-        ],
-      ),
     );
   }
 }
