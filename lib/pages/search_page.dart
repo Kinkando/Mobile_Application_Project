@@ -201,25 +201,20 @@ class _SearchPageState extends State<SearchPage> {
   Padding _buildGenreTag(List<Genre> genreList) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ListView(
-        shrinkWrap: true,
+      child: Wrap(
         children: [
-          Wrap(
-            children: [
-              for(int i=0;i<genreList.length;i++)
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
-                  child: ElevatedButton(
-                    onPressed: () => _genreSearchSubmit(genreList[i]),
-                    style: ElevatedButton.styleFrom(primary: MainScaffold.backgroundColor),
-                    child: Text(
-                      genreList[i].name,
-                      style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
-                    ),
-                  ),
+          for(int i=0;i<genreList.length;i++)
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
+              child: ElevatedButton(
+                onPressed: () => _genreSearchSubmit(genreList[i]),
+                style: ElevatedButton.styleFrom(primary: MainScaffold.backgroundColor),
+                child: Text(
+                  genreList[i].name,
+                  style: GoogleFonts.notoSans(color: MainScaffold.defaultColor),
                 ),
-            ],
-          ),
+              ),
+            ),
         ],
       ),
     );
