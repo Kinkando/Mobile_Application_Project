@@ -1,4 +1,4 @@
-import 'package:anime_list_project/pages/home_page.dart';
+import 'package:anime_list_project/pages/main/home_page.dart';
 import 'package:anime_list_project/pages/widgets/build_card.dart';
 import 'package:anime_list_project/utils/fetch_future.dart';
 import 'package:anime_list_project/models/page_info.dart';
