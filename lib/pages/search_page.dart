@@ -126,14 +126,14 @@ class _SearchPageState extends State<SearchPage> {
     return _genre == null
     ? [_buildGenreTag(genreList)]
     : [
-    BuildTopicCard(
-    color: Colors.black,
-    topic: _genre!.name,
-    margin: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-    ),
-    _buildFutureBuilder(),
-    _buildGenreTag(genreList),
-    ];
+        BuildTopicCard(
+          color: Colors.black,
+          topic: _genre!.name,
+          margin: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+        ),
+        _buildFutureBuilder(),
+        _buildGenreTag(genreList),
+      ];
     }
 
   FutureBuilder<dynamic> _buildFutureBuilder() {
@@ -161,13 +161,13 @@ class _SearchPageState extends State<SearchPage> {
 
         if (snapshot.hasError) {
           return _mode == 'name'
-              ? const Center(
-            child: Padding(
-              padding: EdgeInsets.only(top: 8.0),
-              child: Text('Not Found'),
-            ),
-          )
-              : Center(
+          ? const Center(
+              child: Padding(
+                padding: EdgeInsets.only(top: 8.0),
+                child: Text('Not Found'),
+              ),
+            )
+          : Center(
             child: Padding(
               padding: const EdgeInsets.all(30.0),
               child: Column(
