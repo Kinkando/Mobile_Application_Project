@@ -14,8 +14,21 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments;
     if(args == null) {
-      return const Center(
-        child: CircularProgressIndicator(),
+      return Scaffold(
+        backgroundColor: Colors.black,
+        body: Center(
+          child: AspectRatio(
+            aspectRatio: 9/16,
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/splash_screen_v2.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+        ),
       );
     }
     return Scaffold(
