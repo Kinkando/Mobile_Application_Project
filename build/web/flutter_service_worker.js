@@ -9,20 +9,24 @@ const RESOURCES = {
 "assets/assets/images/splash_screen.png": "d75c0f4b2dce2d7d8ec42f6ece4833ba",
 "assets/assets/images/splash_screen_v2.png": "d11fd5b355b7970600a886f21d56b641",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
-"assets/fonts/MaterialIcons-Regular.otf": "4e6447691c9509f7acdbf8a931a85ca1",
-"assets/NOTICES": "b190d1a83962890f013f8563eba1595a",
+"assets/fonts/MaterialIcons-Regular.otf": "7e7a6cccddf6d7b20012a548461d5d81",
+"assets/NOTICES": "5a0b9b6cc7f623d5acab1414d9c57062",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
+"canvaskit/canvaskit.js": "c2b4e5f3d7a3d82aed024e7249a78487",
+"canvaskit/canvaskit.wasm": "4b83d89d9fecbea8ca46f2f760c5a9ba",
+"canvaskit/profiling/canvaskit.js": "ae2949af4efc61d28a4a80fffa1db900",
+"canvaskit/profiling/canvaskit.wasm": "95e736ab31147d1b2c7b25f11d4c32cd",
 "favicon.ico": "753a9c78e0c83363aafe4af20dcba66c",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "038842aa964c03b5f71cb68bb4743c4d",
-"/": "038842aa964c03b5f71cb68bb4743c4d",
-"main.dart.js": "38968fec120a5b9dc63e6e3ea020fe11",
+"index.html": "d9158cc1265ec0a2ae6901dabc81ac76",
+"/": "d9158cc1265ec0a2ae6901dabc81ac76",
+"main.dart.js": "f4e36c49e995a0cad8e9f45af5d1dda7",
 "manifest.json": "0b637ed19ebbd9f9a51ea484547de9f6",
-"version.json": "626f1e97171be407a60f9d5be63ad22d"
+"version.json": "25a1748a2d2b1ec1bd171ca17f74c3ff"
 };
 
 // The application shell files that are downloaded before a service worker can

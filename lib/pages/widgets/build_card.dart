@@ -21,14 +21,16 @@ class BuildCard extends StatelessWidget {
       material = material as Anime;
       title = material.title!;
       image = material.imageUrl!;
-      content1 = material.type != null && endPoint != pageList['top_anime']!.endPoint
-          ? 'Type: ${material.type!}'
-          : 'Rank: ${material.rank!}';
+      content1 = material.score != null && endPoint != pageList['top_anime']!.endPoint
+          ? 'Score: ${material.score!}'
+          : material.score == null && endPoint != pageList['top_anime']!.endPoint
+            ? 'Score: -'
+            : 'Rank: ${material.rank!}';
       content2 = material.source != null
           ? 'Source: ${material.source!}'
           : endPoint.contains('top')
-          ? 'Score: ${material.score!}'
-          : 'Episode: ${material.episodes!}';
+            ? 'Score: ${material.score!}'
+            : 'Episode: ${material.episodes!}';
       route = pageList['detail_anime']!.routeName;
     }
     else {
@@ -36,13 +38,13 @@ class BuildCard extends StatelessWidget {
       title = material.title!;
       image = material.imageUrl!;
       content1 = endPoint.contains('top')
-          ? 'Rank: ${material.rank!}'
-          : 'Type: ${material.type!}';
-      content2 = endPoint.contains('top')
           ? 'Score: ${material.score!}'
           : material.volumes == null
           ? 'Volume: -'
           : 'Volume: ${material.volumes!}';
+      content2 = endPoint.contains('top')
+          ? 'Rank: ${material.rank!}'
+          : 'Publishing Start: ${material.publishingStart}';
       route = pageList['detail_manga']!.routeName;
     }
     return Card(
